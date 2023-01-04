@@ -8,6 +8,10 @@ class MerchantItemsController < ApplicationController
   def show
     @item = Item.find_by(merchant_id: params[:merchant_id])
   end
+
+  def edit
+    @item = Item.find_by(merchant_id: params[:merchant_id])
+  end
 end
 
 

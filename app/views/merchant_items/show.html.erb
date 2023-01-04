@@ -1,3 +1,4 @@
 <p>Name: <%=@item.name%></p>
 <p>Description: <%=@item.description%></p>
 <p>Current selling price: <%=@item.unit_price%></p>
+<p><%= link_to "Edit", "/merchants/#{@item.merchant_id}/items/#{@item.id}/edit" %></p>
