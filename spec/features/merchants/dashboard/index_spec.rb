@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchant Dashboard Index', type: :feature do
-  let!(:merchant) { name: "Bill's Boardshop"  }
+  let!(:merchant) { Merchant.create!(name: "Bill's Boardshop") }
 
   before :each do
-    visit merchant_dashboard_path(merchant.id)
+    visit "/merchants/#{merchant.id}/dashboard" 
   end
 
   it 'displays the merchant name' do
