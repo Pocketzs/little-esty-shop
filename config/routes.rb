@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # resource :admin, only: :index
 
   namespace :admin do
-    resources :merchants, only: [:index]
+    resources :merchants, only: [:index, :show]
   end
 
 end
