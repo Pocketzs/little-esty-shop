@@ -4,13 +4,15 @@ RSpec.describe "Admin Merchants Update" do
   let!(:merchant1) {FactoryBot.create(:merchant)}
   
   describe 'User Story 26' do
-    it 'when I visit the admin merchant show page' do
+    it 'admin merchant show page has an update button' do
       visit admin_merchant_path(merchant1.id)
+
+      expect(page).to have_link("Update #{merchant1.name}")
+      click_on "Update #{merchant1.name}"
       
-      expect(page).to have_button('Update')
-      click_on 'Update'
-      
-      expect(current_path).to eq(admin_merchant_path(merchant1.id))
+      expect(page).to have_field('Submit')
+      expect(page).to have_button('Submit')
+      expect(current_path).to eq("/admin/merchants/#{merchant1.id}/edit")
     end
   end
 end
