@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :merchant do
+  resources :merchants, only:[] do
     resources :items, only:[:index], controller: "merchant_items"
   end
 end
