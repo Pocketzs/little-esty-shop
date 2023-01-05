@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :show]
   end
 
+  resources :merchants, only:[] do
+    resources :items, only:[:index, :show, :edit, :update], controller: "merchant_items"
+  end
+
 end
