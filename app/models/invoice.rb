@@ -4,4 +4,9 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
   enum status: ['in progress', 'completed', 'cancelled']
+
+  def total_revenue
+    require 'pry'; binding.pry
+  end
+  
 end

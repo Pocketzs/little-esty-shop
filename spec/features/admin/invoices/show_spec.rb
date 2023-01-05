@@ -47,7 +47,7 @@ RSpec.describe "Admin Invoices Show" do
       # When I visit an admin invoice show page
       visit admin_invoice_path(invoice1.id)
       # Then I see the total revenue that will be generated from this invoice
-      expect(page).to have_content(invoice.total_revenue)
+      expect(page).to have_content(invoice1.total_revenue)
     end
   end
 end
