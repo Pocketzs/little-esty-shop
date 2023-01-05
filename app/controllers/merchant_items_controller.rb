@@ -19,6 +19,7 @@ class MerchantItemsController < ApplicationController
     # binding.pry
     if params[:status]
       item.update(status: params[:status])
+      redirect_to merchant_items_path(item.merchant_id, item.id)
     elsif item.update(item_params)
       redirect_to merchant_item_path(item.merchant_id, item.id)
       flash[:alert] = 'Item has been updated!'

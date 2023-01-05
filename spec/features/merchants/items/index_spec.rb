@@ -89,13 +89,14 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe "When I click this button" do
     it "I am redirected to the items index and I see that the item status has changed" do
       visit merchant_items_path(merchant1)
-
+      
       within "#item-#{item1.id}" do
         expect(page).to have_content("Status: disabled")
         click_button "Enable"
-      end      
+      end  
+      
       within "#item-#{item1.id}" do
-       expect(page).to have_content("Status: enabled")
+        expect(page).to have_content("#{item1.name} Status: enabled")
       end
     end
   end
