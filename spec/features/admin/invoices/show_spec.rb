@@ -4,6 +4,9 @@ RSpec.describe "Admin Invoices Show" do
   let!(:customer) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
   let!(:invoice1) {customer.invoices.create!(status: 0)}
   let!(:invoice2) {customer.invoices.create!(status: 0)}
+  let!(:merchant1) {Merchant.create!(name: "Hockey Stop and Shop")}
+  let!(:item1) {merchant1.items.create!(name: "Socks", description: "They're good socks.", unit_price: 1200)}
+  let!(:invoice_item1) {InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id)}
 
   describe "User Story 33" do
     it "lists specific invoice info" do
@@ -29,7 +32,7 @@ RSpec.describe "Admin Invoices Show" do
       visit admin_invoice_path(invoice1.id)
       # Then I see all of the items on the invoice including:
       # Item name
-      expect(page).to have_content(invoice_item.item.name)
+      expect(page).to have_content(invoice_item1.item.name)
       # The quantity of the item ordered
       expect(page).to have_content(invoice_item1.quantity)
       # The price the Item sold for
