@@ -17,10 +17,7 @@ class Admin::MerchantsController < ApplicationController
       redirect_to admin_merchant_path
       flash[:notice] = "#{merchant.name} Has Been Updated!"
     else
-
       redirect_to admin_merchant_path
-      flash[:alert] = "Error: #{error_message(merchant.errors)}"
-    #   flash[:error] = "Please complete all fields before submitting"
     end
   end
   
