@@ -22,5 +22,21 @@ RSpec.describe "Admin Invoices Show" do
       expect(page).to_not have_content(invoice2.id)
     end
   end
+
+  describe "User Story 34" do
+    it "invoice item information" do
+      # When I visit an admin invoice show page
+      visit admin_invoice_path(invoice1.id)
+      # Then I see all of the items on the invoice including:
+      # Item name
+      expect(page).to have_content(invoice_item.item.name)
+      # The quantity of the item ordered
+      expect(page).to have_content(invoice_item1.quantity)
+      # The price the Item sold for
+      expect(page).to have_content(invoice_item1.unit_price)
+      # The Invoice Item status
+      expect(page).to have_content(invoice_item1.status)
+    end
+  end
 end
 
