@@ -1,4 +1,6 @@
-<%= form_with model: @item, url: edit_merchant_item_path(@item.merchant_id, @item.id), method: :patch, local: true do |f| %>
+<h1><%= @item.name %> Edit Page</h1>
+
+<%= form_with model: @item, url: merchant_item_path(@item.merchant_id, @item.id), method: :patch, local: true do |f| %>
   <%= f.label :name, "Name" %>
   <%= f.text_field :name %>
   <%= f.label :description %>
