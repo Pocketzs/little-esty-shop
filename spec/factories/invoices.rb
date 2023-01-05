@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :invoice do
-    customer_id { nil }
-    status { 1 }
+    customer_id 
+    status { [1,2,3].sample }
   end
 end
