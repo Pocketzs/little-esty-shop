@@ -1,8 +1,15 @@
-<h1>Edit Merchant</h1>
+<h1>Edit <%= "#{@merchant.name}" %></h1>
 
-<%= form_with url: "/admin/merchants/#{@merchant.id}", method: :patch, local: true do |f| %>
+<!-- <% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %> -->
+
+<%= form_with model: @merchant, url: "/admin/merchants/#{@merchant.id}", method: :patch, local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
   <%= f.submit %>
+  
 <% end %>

@@ -13,18 +13,18 @@ class Admin::MerchantsController < ApplicationController
   
   def update
     merchant = Merchant.find(params[:id])
-    if merchant.update(merchant_params)
-      flash.notice = "#{merchant.name} Has Been Updated!"
-      redirect_to admin_merchant_path(@merchant)
+    if merchant.update!(merchant_params)
+      redirect_to admin_merchant_path(merchant.id)
+      flash[:notice] = "#{merchant.name} Has Been Updated!"
     else
-      flash.notice = "Please complete all fields before submitting"
-      redirect_to admin_merchant_path(@merchant)
+      # flash[:now] = "Please complete all fields before submitting"
+      flash[:alert] = "Please complete all fields before submitting"
     end
   end
   
   private
   
   def merchant_params
-    params.permit(:id, :name, :updated_at)
+    params.require(:merchant).permit(:id, :name)
   end
 end
