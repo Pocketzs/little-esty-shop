@@ -14,6 +14,13 @@
 # - Description
 # - Current Selling Price
 
+# As a merchant
+# When I visit my items index page
+# Next to each item name I see a button to disable or enable that item.
+# When I click this button
+# Then I am redirected back to the items index
+# And I see that the items status has changed
+
 require 'rails_helper'
 
 RSpec.describe 'The Merchant Items Index page', type: :feature do
@@ -59,4 +66,37 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       expect(current_path).to eq(merchant_item_path(merchant1.id, item1.id))
     end
   end
-end
+
+  describe "When I visit my items index page" do
+    it "next to each item name I see a button to enable or disable that item" do
+      visit merchant_items_path(merchant1)
+
+      within "#item-#{item1.id}" do
+        expect(page).to have_button("Enable")
+      end
+      within "#item-#{item2.id}" do
+       expect(page).to have_button("Enable")
+      end
+      within "#item-#{item3.id}" do
+       expect(page).to have_button("Enable")
+      end
+      within "#item-#{item4.id}" do
+        expect(page).to have_button("Enable")
+      end
+    end
+  end
+
+  describe "When I click this button" do
+    it "I am redirected to the items index and I see that the item status has changed" do
+      visit merchant_items_path(merchant1)
+
+      within "#item-#{item1.id}" do
+        expect(page).to have_content("Status: disabled")
+        click_button "Enable"
+      end      
+      within "#item-#{item1.id}" do
+       expect(page).to have_content("Status: enabled")
+      end
+    end
+  end
+end 
