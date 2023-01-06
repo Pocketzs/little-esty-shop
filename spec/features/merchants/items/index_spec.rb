@@ -37,16 +37,16 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     it 'has a button to go to the items show page' do
       visit merchant_items_path(merchant1)
 
-      within "#item-#{item1.id}" do
+      within "#item_#{item1.id}" do
         expect(page).to have_link("#{item1.name}")
       end
-      within "#item-#{item2.id}" do
+      within "#item_#{item2.id}" do
        expect(page).to have_link("#{item2.name}")
       end
-      within "#item-#{item3.id}" do
+      within "#item_#{item3.id}" do
        expect(page).to have_link("#{item3.name}")
       end
-      within "#item-#{item4.id}" do
+      within "#item_#{item4.id}" do
         expect(page).to have_link("#{item4.name}")
       end
 
@@ -60,16 +60,16 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     it "next to each item name I see a button to enable or disable that item" do
       visit merchant_items_path(merchant1)
 
-      within "#item-#{item1.id}" do
+      within "#item_#{item1.id}" do
         expect(page).to have_button("Enable")
       end
-      within "#item-#{item2.id}" do
+      within "#item_#{item2.id}" do
        expect(page).to have_button("Enable")
       end
-      within "#item-#{item3.id}" do
+      within "#item_#{item3.id}" do
        expect(page).to have_button("Enable")
       end
-      within "#item-#{item4.id}" do
+      within "#item_#{item4.id}" do
         expect(page).to have_button("Enable")
       end
     end
@@ -79,12 +79,12 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     it "I am redirected to the items index and I see that the item status has changed" do
       visit merchant_items_path(merchant1)
       
-      within "#item-#{item1.id}" do
+      within "#item_#{item1.id}" do
         expect(page).to have_content("Status: disabled")
         click_button "Enable"
       end  
       
-      within "#item-#{item1.id}" do
+      within "#item_#{item1.id}" do
         expect(page).to have_content("#{item1.name} Status: enabled")
       end
     end
@@ -92,13 +92,13 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   
   describe "when I visit merchant index page" do
     it "I see a link to create a new item" do
-      visit merchant_items_path(merchant1)
-
+      visit merchant_items_path(merchant1.id)
+# require 'pry'; binding.pry
       expect(page).to have_link("Create New Item")
     end
 
     it "when I click the link I am taken to a form that allows me to add item information" do
-      visit merchant_items_path(merchant1)
+      visit merchant_items_path(merchant1.id)
 
       click_link("Create New Item")
 
@@ -116,20 +116,26 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       fill_in("Description", with: "Serotonin Maker")
       fill_in("Current Selling Price", with: 2500)
 
-      click_button("Save")
-require 'pry'; binding.pry
-      # expect(page).to have_current_path(merchant_items_path(merchant1))
-      # expect(page).to have_content("Name: Bubble Machine")
-      # expect(page).to have_content("Description: Serotonin Maker")
-      # expect(page).to have_content("Current Selling Price: 2500")
+      click_button("Submit")
+      save_and_open_page
+# require 'pry'; binding.pry
+      expect(current_path).to eq(merchant_items_path(merchant1.id))
     end
 
-    xit "I see the item I just created in the list of items and a status of disabled" do
-      visit merchant_items_path(merchant1)
+    it "I see the item I just created in the list of items and a status of disabled" do
+      visit "/merchants/#{merchant1.id}/items/new"
 
-        within "#index-#{item6.id}" do
-          expect(page).to have_content("Status: disabled")
-        end
+      fill_in("Name", with: "Bubble Machine")
+      fill_in("Description", with: "Serotonin Maker")
+      fill_in("Current Selling Price", with: 2500)
+
+      click_button("Submit")
+
+      item = Item.last
+      within "#item_#{item.id}" do
+        expect(page).to have_link("Bubble Machine")
+        expect(page).to have_content("Status: disabled")
+      end
       
     end
   end
