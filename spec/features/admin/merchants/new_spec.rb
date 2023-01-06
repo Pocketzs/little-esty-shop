@@ -4,20 +4,35 @@ RSpec.describe "Admin Merchants Create" do
   describe 'User Story 29' do
     it 'admin merchant index page has a link to create a new merchant' do
       # # When I visit the admin merchants index
-      visit admin_merchant_path
+      visit admin_merchants_path
       
       # # I see a link to create a new merchant.
       expect(page).to have_link('New Merchant')
     end
     
     it 'links goes to New Merchant form' do
-      visit admin_merchant_path
+      visit admin_merchants_path
       
       # # When I click on the link
       click_on 'New Merchant'
       
+      # # I am taken to a form that allows me to add merchant information.
       expect(current_path).to eq("/admin/merchants/new")
+      expect(page).to have_field('Name')
+      expect(page).to have_button('Submit')
+    end
+    
+    it 'can be filled in and submitted' do
+      visit admin_merchants_path
       
+      # # When I fill out the form I click ‘Submit’
+      fill_in 'Name', with: 'Everything Topsy Turvy'
+      click_button 'Submit'
+      
+      # # Then I am taken back to the admin merchants index page
+      expect(current_path).to eq("/admin/merchants")
+      # # And I see the merchant I just created displayed
+      expect(page).to have_content('Everything Topsy Turvy')
     end
     
   # # As an admin,
@@ -28,7 +43,7 @@ RSpec.describe "Admin Merchants Create" do
   # # When I fill out the form I click ‘Submit’
   # # Then I am taken back to the admin merchants index page
   # # And I see the merchant I just created displayed
+
   # # And I see my merchant was created with a default status of disabled.
-    end
   end
 end
