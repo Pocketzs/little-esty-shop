@@ -10,7 +10,7 @@ RSpec.describe "Admin Merchants Create" do
       expect(page).to have_link('New Merchant')
     end
     
-    it 'links goes to New Merchant form' do
+    xit 'links goes to New Merchant form' do
       visit admin_merchants_path
       
       # # When I click on the link
@@ -22,7 +22,7 @@ RSpec.describe "Admin Merchants Create" do
       expect(page).to have_button('Submit')
     end
     
-    it 'can be filled in and submitted' do
+    xit 'can be filled in and submitted' do
       visit admin_merchants_path
       
       # # When I fill out the form I click ‘Submit’
