@@ -11,4 +11,5 @@ FactoryBot.define do
     end
     
     factory :stocked_item, traits: [:stocked]
+  end
 end
