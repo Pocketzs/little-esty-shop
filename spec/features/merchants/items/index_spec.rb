@@ -1,25 +1,14 @@
-# As a merchant,
-# When I visit my merchant items index page ("merchants/merchant_id/items")
-# I see a list of the names of all of my items
-# And I do not see items for any other merchant
-
-# 7. Merchant Items Show Page
-
-# As a merchant,
-# When I click on the name of an item from the merchant items index page,
-# Then I am taken to that merchant's item's show page (/merchants/merchant_id/items/item_id)
-# And I see all of the item's attributes including:
-
-# - Name
-# - Description
-# - Current Selling Price
+# 11. Merchant Item Create
 
 # As a merchant
 # When I visit my items index page
-# Next to each item name I see a button to disable or enable that item.
-# When I click this button
-# Then I am redirected back to the items index
-# And I see that the items status has changed
+# I see a link to create a new item.
+# When I click on the link,
+# I am taken to a form that allows me to add item information.
+# When I fill out the form I click ‘Submit’
+# Then I am taken back to the items index page
+# And I see the item I just created displayed in the list of items.
+# And I see my item was created with a default status of disabled.
 
 require 'rails_helper'
 
@@ -98,6 +87,50 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       within "#item-#{item1.id}" do
         expect(page).to have_content("#{item1.name} Status: enabled")
       end
+    end
+  end
+  
+  describe "when I visit merchant index page" do
+    it "I see a link to create a new item" do
+      visit merchant_items_path(merchant1)
+
+      expect(page).to have_link("Create New Item")
+    end
+
+    it "when I click the link I am taken to a form that allows me to add item information" do
+      visit merchant_items_path(merchant1)
+
+      click_link("Create New Item")
+
+      expect(page).to have_current_path("/merchants/#{merchant1.id}/items/new")
+# save_and_open_page
+      expect(page).to have_field('Name')
+      expect(page).to have_field('Description')
+      expect(page).to have_field('Current Selling Price')
+    end
+
+    it "When I fill out the form and hit 'submit I am taken back to the items index page" do
+      visit "/merchants/#{merchant1.id}/items/new"
+
+      fill_in("Name", with: "Bubble Machine")
+      fill_in("Description", with: "Serotonin Maker")
+      fill_in("Current Selling Price", with: 2500)
+
+      click_button("Save")
+require 'pry'; binding.pry
+      # expect(page).to have_current_path(merchant_items_path(merchant1))
+      # expect(page).to have_content("Name: Bubble Machine")
+      # expect(page).to have_content("Description: Serotonin Maker")
+      # expect(page).to have_content("Current Selling Price: 2500")
+    end
+
+    xit "I see the item I just created in the list of items and a status of disabled" do
+      visit merchant_items_path(merchant1)
+
+        within "#index-#{item6.id}" do
+          expect(page).to have_content("Status: disabled")
+        end
+      
     end
   end
 end 

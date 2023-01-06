@@ -6,3 +6,4 @@
   <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
   </div>
 <% end %>
+  <p><%= link_to "Create New Item", new_merchant_item_path(@merchant.id) %></p>
