@@ -10,24 +10,24 @@ RSpec.describe "Admin Merchants Create" do
       expect(page).to have_link('New Merchant')
     end
     
-    xit 'links goes to New Merchant form' do
+    it 'links goes to New Merchant form' do
       visit admin_merchants_path
       
       # # When I click on the link
-      click_on 'New Merchant'
+      click_link 'New Merchant'
       
       # # I am taken to a form that allows me to add merchant information.
       expect(current_path).to eq("/admin/merchants/new")
       expect(page).to have_field('Name')
-      expect(page).to have_button('Submit')
+      expect(page).to have_button('Create Merchant')
     end
     
-    xit 'can be filled in and submitted' do
-      visit admin_merchants_path
+    it 'can be filled in and submitted' do
+      visit new_admin_merchant_path
       
       # # When I fill out the form I click ‘Submit’
       fill_in 'Name', with: 'Everything Topsy Turvy'
-      click_button 'Submit'
+      click_button 'Create Merchant'
       
       # # Then I am taken back to the admin merchants index page
       expect(current_path).to eq("/admin/merchants")
