@@ -1,15 +1,3 @@
-# 11. Merchant Item Create
-
-# As a merchant
-# When I visit my items index page
-# I see a link to create a new item.
-# When I click on the link,
-# I am taken to a form that allows me to add item information.
-# When I fill out the form I click ‘Submit’
-# Then I am taken back to the items index page
-# And I see the item I just created displayed in the list of items.
-# And I see my item was created with a default status of disabled.
-
 require 'rails_helper'
 
 RSpec.describe 'The Merchant Items Index page', type: :feature do
@@ -25,7 +13,6 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe 'when I visit the merchant items index page' do
     it 'shows a list of the names of all my items' do
       visit merchant_items_path(merchant1)
-      # visit "/merchants/#{merchant1.id}/items"
 
       expect(page).to have_content(item1.name)
       expect(page).to have_content(item2.name)
@@ -93,7 +80,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe "when I visit merchant index page" do
     it "I see a link to create a new item" do
       visit merchant_items_path(merchant1.id)
-# require 'pry'; binding.pry
+
       expect(page).to have_link("Create New Item")
     end
 
@@ -103,7 +90,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       click_link("Create New Item")
 
       expect(page).to have_current_path("/merchants/#{merchant1.id}/items/new")
-# save_and_open_page
+
       expect(page).to have_field('Name')
       expect(page).to have_field('Description')
       expect(page).to have_field('Current Selling Price')
@@ -117,8 +104,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       fill_in("Current Selling Price", with: 2500)
 
       click_button("Submit")
-      save_and_open_page
-# require 'pry'; binding.pry
+
       expect(current_path).to eq(merchant_items_path(merchant1.id))
     end
 
