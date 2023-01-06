@@ -31,8 +31,8 @@ class MerchantItemsController < ApplicationController
 
   def new
     # require 'pry'; binding.pry
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = @merchant.items.new
+    # @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new(merchant_id: params[:merchant_id])
     #  require 'pry'; binding.pry
   end
 
@@ -50,7 +50,7 @@ class MerchantItemsController < ApplicationController
 
   def item_params
     # require 'pry'; binding.pry
-    params.permit(:name, :description, :unit_price)
+    params.require(:item).permit(:name, :description, :unit_price)
   end
 
 
