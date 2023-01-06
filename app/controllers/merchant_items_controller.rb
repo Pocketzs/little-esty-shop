@@ -29,11 +29,31 @@ class MerchantItemsController < ApplicationController
     end
   end
 
+  def new
+    # require 'pry'; binding.pry
+    # @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new(merchant_id: params[:merchant_id])
+    #  require 'pry'; binding.pry
+  end
+
+  def create
+    # require 'pry'; binding.pry
+    merchant = Merchant.find(params[:merchant_id])
+    @item = merchant.items.create!(item_params)
+    # require 'pry'; binding.pry
+    redirect_to merchant_items_path(merchant.id)
+  
+  end
+ 
+
   private
 
   def item_params
+    # require 'pry'; binding.pry
     params.require(:item).permit(:name, :description, :unit_price)
   end
+
+
 end
 
 
