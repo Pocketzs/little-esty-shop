@@ -5,6 +5,9 @@ RSpec.describe "Admin Invoices Index" do
   let!(:invoice1) {customer.invoices.create!(status: 0)}
   let!(:invoice2) {customer.invoices.create!(status: 0)}
   let!(:invoice3) {customer.invoices.create!(status: 0)}
+  let!(:merchant1) {Merchant.create!(name: "Hockey Stop and Shop")}
+  let!(:item1) {merchant1.items.create!(name: "Socks", description: "They're good socks.", unit_price: 1200)}
+  let!(:invoice_item1) {InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id)}
 
   describe "User Story 32" do
     it "lists all invoice ids" do
