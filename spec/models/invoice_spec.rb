@@ -10,11 +10,4 @@ RSpec.describe Invoice, type: :model do
   describe 'validations' do
     it { should define_enum_for(:status) }
   end
-
-  # describe "total_revenue" do
-  #   it "returns total revenue related to a specific invoicefor for all itmes" do
-  #     expect(@.invoice).to eq()
-  #   end
-  # end
-
 end
