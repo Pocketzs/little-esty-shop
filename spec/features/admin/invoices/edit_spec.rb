@@ -12,26 +12,29 @@ RSpec.describe "Admin Invoices Edit" do
     it "edit Invoice Status" do
       # When I visit an admin invoice show page
       visit admin_invoice_path(invoice1.id)
+      expect(invoice1.status).to eq "in progress"
       # I see the invoice status is a select field
       # And I see that the invoice's current status is selected
 
-################ Something to confirm selection field ###############
-
+      within("#invoice_#{invoice1.id}_status") do
+        has_field?("Status", with: invoice1.status)
+        find(:select).find(:option, "completed").select_option
+        expect(page).to have_button "Update Invoice Status"
+        click_button("Update Invoice Status")
+      end
+        
+      expect(current_path).to eq admin_invoice_path(invoice1.id)
+      binding.pry
+      expect(invoice1.status).to eq "completed"
       # When I click this select field,
       # Then I can select a new status for the Invoice,
-      find(:select).find(:option, "completed").select_option
       # And next to the select field I see a button to "Update Invoice Status"
-      expect(page).to have_button "Update Invoice Status"
       
       # When I click this button
-      click_button("Update Invoice Status")
 
       # I am taken back to the admin invoice show page
       
-      expect(current_path).to eq admin_invoice_path(invoice1.id)
-      save_and_open_page
       # And I see that my Invoice's status has now been updated
-      expect(invoice1.status).to eq "completed"
     end
   end
 end
