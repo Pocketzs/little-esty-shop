@@ -6,8 +6,8 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
 
   let!(:item1) { Item.create!(name: "Tissues", description: "Wipes Nose", unit_price: 1000, merchant: merchant1) }
   let!(:item2) { Item.create!(name: "Apples", description: "Delicious", unit_price: 1200, merchant: merchant1) }
-  let!(:item3) { Item.create!(name: "Pizza", description: "Cheezy Delicious", unit_price: 1749, merchant: merchant1) }
-  let!(:item4) { Item.create!(name: "Penguins", description: "Exotic pet", unit_price: 100005, merchant: merchant1) }
+  let!(:item3) { Item.create!(name: "Pizza", description: "Cheezy Delicious", unit_price: 1749, merchant: merchant1, status: "enabled") }
+  let!(:item4) { Item.create!(name: "Penguins", description: "Exotic pet", unit_price: 100005, merchant: merchant1, status: "enabled") }
   let!(:item5) { Item.create!(name: "Computer Mouse", description: "Moves Cursor", unit_price: 5000, merchant: merchant2) }
 
   describe 'when I visit the merchant items index page' do
@@ -128,12 +128,12 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe "two sections, one for enabled items, one for disabled items" do #us10
     it "has an 'Enabled Items' section" do
       visit merchant_items_path(merchant1)       
-
+      
       within("#enabled-items") do
         expect(page).to_not have_content(item1.name)
         expect(page).to_not have_content(item2.name)
-        expect(page).to_not have_content(item3.name)
-        expect(page).to_not have_content(item4.name)
+        expect(page).to have_content(item3.name)
+        expect(page).to have_content(item4.name)
       end
     end
 
@@ -143,8 +143,8 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       within("#disabled-items") do
         expect(page).to have_content(item1.name)
         expect(page).to have_content(item2.name)
-        expect(page).to have_content(item3.name)
-        expect(page).to have_content(item4.name)
+        expect(page).to_not have_content(item3.name)
+        expect(page).to_not have_content(item4.name)
       end
     end
   end
