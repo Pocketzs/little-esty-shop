@@ -7,6 +7,6 @@ class MerchantInvoicesController < ApplicationController
 
   def show
     # require 'pry'; binding.pry
-    @invoice = Invoice.find(params[:id])
+    @merchant_invoice = Invoice.find(params[:id])
   end
 end

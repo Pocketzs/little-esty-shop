@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper" 
 
-RSpec.describe 'The Merchant Invoices Index page', type: :feature do
+RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   let!(:merchant1) { Merchant.create!(name: "Billy's Butters") }
   let!(:merchant2) { Merchant.create!(name: "Sandy's Sandwiches") }
 
@@ -21,21 +21,15 @@ RSpec.describe 'The Merchant Invoices Index page', type: :feature do
   let!(:invoice2) {customer1.invoices.create!(status: 1)}
   let!(:invoice3) {customer2.invoices.create!(status: 2)}
 
-  describe "When I visit the merchant invoice index page" do
-    it "then I see all of the invoices that include at least one of my merchant's items" do
-      visit merchant_invoices_path(merchant1.id)
+  describe "When I visit the merchants invoice show page" do #us15
+    it "shows information related to that invoice including :id, status, create_at, customer first and last name" do
+      visit merchant_invoice_path(merchant1.id, invoice1.id)
 
-      expect(page).to have_content("Invoice ID: #{invoice1.id}")
-      expect(page).to have_content("Invoice ID: #{invoice2.id}")
+      expect(page).to have_content(invoice1.id)
+      expect(page).to have_content(invoice1.status)
+      expect(page).to have_content(invoice1.created_at.strftime("%A, %B %d, %Y"))
+      expect(page).to have_content(customer1.first_name)
+      expect(page).to have_content(customer1.last_name)
     end
-
-    it "for each invoice I see an id and each id links to a merchants invoice show page" do
-      visit merchant_invoices_path(merchant1.id)
-
-      click_link("#{invoice1.id}")
-      expect(current_path).to eq(merchant_invoice_path(merchant1.id, invoice1.id))
-    end
-
-
   end
 end

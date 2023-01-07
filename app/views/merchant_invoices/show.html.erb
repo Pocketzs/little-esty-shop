@@ -1,0 +1,7 @@
+<h1>Merchant Invoice Show Page</h1>
+
+
+Merchant Invoice: <%= @merchant_invoice.id %><br>
+Status:<%= @merchant_invoice.status %><br>
+Creation Date: <%=  @merchant_invoice.created_at.strftime("%A, %B %d, %Y") %><br>
+Customer Full Name: <%= @merchant_invoice.customer.first_name %> <%= @merchant_invoice.customer.last_name %>
