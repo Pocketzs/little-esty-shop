@@ -33,6 +33,8 @@ RSpec.describe "Admin Merchants Create" do
       expect(current_path).to eq("/admin/merchants")
       # # And I see the merchant I just created displayed
       expect(page).to have_content('Everything Topsy Turvy')
+      # # And I see my merchant was created with a default status of disabled.
+      expect(page).to have_content('Disabled')
     end
     
   # # As an admin,
