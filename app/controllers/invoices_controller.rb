@@ -4,6 +4,6 @@ class InvoicesController < ApplicationController
     
     invoice.update(status: params[:invoice][:status])
     
-    redirect_to admin_invoices_path
+    redirect_to admin_invoice_path(params[:id])
   end
 end

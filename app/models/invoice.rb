@@ -12,6 +12,6 @@ class Invoice < ApplicationRecord
     # INNER JOIN invoice_items.invoice_id=invoices.id
     # GROUP BY invoices.id
     invoices = Invoice.joins(:invoice_items).select("invoices.id, SUM(invoice_items.quantity * invoice_items.unit_price) AS total").group("invoices.id").where("invoices.id = #{self.id}")
-    # invoices.first.total
+    invoices.first.total
   end
 end

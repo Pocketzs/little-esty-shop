@@ -24,7 +24,7 @@ RSpec.describe "Admin Invoices Edit" do
       end
         
       expect(current_path).to eq admin_invoice_path(invoice1.id)
-      binding.pry
+      invoice1.reload
       expect(invoice1.status).to eq "completed"
       # When I click this select field,
       # Then I can select a new status for the Invoice,
