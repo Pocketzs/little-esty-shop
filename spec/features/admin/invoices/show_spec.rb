@@ -51,5 +51,25 @@ RSpec.describe "Admin Invoices Show" do
       expect(page).to have_content(invoice1.total_revenue)
     end
   end
+
+  describe "User Story 36" do
+    it "update Invoice Status using selector" do
+      visit admin_invoice_path(invoice1.id)
+
+      expect(invoice1.status).to eq "in progress"
+
+      within("#invoice_#{invoice1.id}_status") do
+        has_field?("Status", with: invoice1.status)
+        find(:select).find(:option, "completed").select_option
+        expect(page).to have_button "Update Invoice Status"
+        click_button("Update Invoice Status")
+      end
+        
+      expect(current_path).to eq admin_invoice_path(invoice1.id)
+      
+      invoice1.reload
+      expect(invoice1.status).to eq "completed"
+    end
+  end
 end
 
