@@ -1,8 +1,15 @@
-# 17. Merchant Invoice Show Page: Total Revenue
+# 18. Merchant Invoice Show Page: Update Item Status
 
 # As a merchant
 # When I visit my merchant invoice show page
-# Then I see the total revenue that will be generated from all of my items on the invoice
+# I see that each invoice item status is a select field
+# And I see that the invoice item's current status is selected
+# When I click this select field,
+# Then I can select a new status for the Item,
+# And next to the select field I see a button to "Update Item Status"
+# When I click this button
+# I am taken back to the merchant invoice show page
+# And I see that my Item's status has now been updated
 require "rails_helper" 
 
 RSpec.describe 'The Merchant Invoices Show page', type: :feature do
@@ -41,7 +48,7 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   describe "when I visit the merchant invoice show page" do
     it "then I see all of my items on the invoice including: name, quanity, price, status" do #us 16
       visit merchant_invoice_path(merchant1.id, invoice1.id)
-    
+
       expect(page).to have_content(item1.name)
       expect(page).to have_content(invoice_item1.quantity)
       expect(page).to have_content(invoice_item1.unit_price)
@@ -52,9 +59,36 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   describe "when I visit the merchant invoice show page" do #us 17
     it "I see the total revenue that will be generated from all of my items on the invoice" do
       visit merchant_invoice_path(merchant1, invoice1)
-# save_and_open_page
-# require 'pry'; binding.pry
+
       expect(page).to have_content(invoice1.total_revenue)
+    end
+  end
+
+  describe "when I visit my merchant invoice show page" do
+    it "I see that each invoice item status is a select field" do
+      visit merchant_invoice_path(merchant1, invoice1)
+# save_and_open_page
+      within "#item_#{item1.id}" do
+        # save_and_open_page
+        # require 'pry'; bindng.pry
+      # save_and_open_page
+        expect(page).to have_select(:status, selected: "pending")
+        # expect(page).to have_content("#{invoice_item1.status}")
+        expect(page).to_not have_content(" #{invoice_item2.status}")
+      end
+    end
+
+    xit "when I click this select field than I see a new status for the item " do
+      visit merchant_invoice_path(merchant1, invoice1)
+      
+      within "#item_#{item1.id}" do
+        select("packed", from: "Status")
+        click_button("Submit")
+
+        expect(current_path).to eq(merchant_invoice_path(merchant1, invoice1))
+        # expect(page).to have_content("#{invoice_item1")
+      end
+
     end
   end
 end

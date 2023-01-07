@@ -9,4 +9,8 @@ class MerchantInvoicesController < ApplicationController
     # require 'pry'; binding.pry
     @merchant_invoice = Invoice.find(params[:id])
   end
+
+  def update
+    
+  end
 end

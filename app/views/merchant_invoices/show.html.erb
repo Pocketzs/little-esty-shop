@@ -10,11 +10,17 @@ Customer Full Name: <%= @merchant_invoice.customer.first_name %> <%= @merchant_i
 
 Item name: <%= item.name %><br>
 <% item.invoice_items.each do |invoice_i| %>
-Quanity: <%= invoice_i.quantity %><br>
+Quantity: <%= invoice_i.quantity %><br>
 Price: <%= invoice_i.unit_price%><br>
-Invoice Item Status: <%= invoice_i.status %><br>
-<br>
-<% end %>
-<% end %>
 
+<div id="item_<%= item.id %>">
+Invoice Item Status: <%=form_with url: merchant_invoice_path(@merchant_invoice.id, invoice_i.id),method: :patch, local: true do |f| %><br>
+  <%= f.label :status, "status"  %>
+  <%= f.select :status, options_for_select([[:pending, "pending"], [:packed, "packed"], [:shipped, "shipped"]])%>
+  <%= f.submit "Submit"%>
+<% end %>
+<br>
+</div>
+<% end %>
+<% end %>
 Total Revenue: <%= @merchant_invoice.total_revenue %>
