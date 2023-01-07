@@ -1,3 +1,13 @@
+# 16. Merchant Invoice Show Page: Invoice Item Information
+
+# As a merchant
+# When I visit my merchant invoice show page
+# Then I see all of my items on the invoice including:
+# - Item name
+# - The quantity of the item ordered
+# - The price the Item sold for
+# - The Invoice Item status
+# And I do not see any information related to Items for other merchants
 require "rails_helper" 
 
 RSpec.describe 'The Merchant Invoices Show page', type: :feature do
@@ -9,10 +19,10 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   let!(:item3) { Item.create!(name: "Pizza", description: "Cheezy Delicious", unit_price: 1749, merchant: merchant1) }
   let!(:item4) { Item.create!(name: "Penguins", description: "Exotic pet", unit_price: 100005, merchant: merchant1) }
 
-  let!(:invoice_item1) { InvoiceItem.create!(unit_price: 1000, item: item1, invoice: invoice1, status: 0) }
-  let!(:invoice_item2) { InvoiceItem.create!(unit_price: 1200, item: item2, invoice: invoice1, status: 1) }
-  let!(:invoice_item3) { InvoiceItem.create!(unit_price: 1749, item: item3, invoice: invoice2, status: 2) }
-  let!(:invoice_item4) { InvoiceItem.create!(unit_price: 100005, item: item4, invoice: invoice3, status: 1) }
+  let!(:invoice_item1) { InvoiceItem.create!(quantity: 2, unit_price: 1000, item: item1, invoice: invoice1, status: 0) }
+  let!(:invoice_item2) { InvoiceItem.create!(quantity: 6, unit_price: 1200, item: item2, invoice: invoice1, status: 1) }
+  let!(:invoice_item3) { InvoiceItem.create!(quantity: 1, unit_price: 1749, item: item3, invoice: invoice2, status: 2) }
+  let!(:invoice_item4) { InvoiceItem.create!(quantity: 2, unit_price: 100005, item: item4, invoice: invoice3, status: 1) }
 
   let!(:customer1) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
   let!(:customer2) {Customer.create!(first_name: "Chad", last_name: "Chaddert")}
@@ -31,5 +41,17 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
       expect(page).to have_content(customer1.first_name)
       expect(page).to have_content(customer1.last_name)
     end
+  end
+
+  describe "when I visit the merchant invoice show page" do
+    it "then I see all of my items on the invoice invluding: name, quanity, price, status" do #us 16
+      visit merchant_invoice_path(merchant1.id, invoice1.id)
+    
+save_and_open_page
+      expect(page).to have_content(item1.name)
+      expect(page).to have_content(invoice_item1.quantity)
+      expect(page).to have_content(invoice_item1.unit_price)
+      expect(page).to have_content(invoice_item1.status)
+    end  
   end
 end

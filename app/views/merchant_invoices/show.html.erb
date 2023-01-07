@@ -4,4 +4,15 @@
 Merchant Invoice: <%= @merchant_invoice.id %><br>
 Status:<%= @merchant_invoice.status %><br>
 Creation Date: <%=  @merchant_invoice.created_at.strftime("%A, %B %d, %Y") %><br>
-Customer Full Name: <%= @merchant_invoice.customer.first_name %> <%= @merchant_invoice.customer.last_name %>
+Customer Full Name: <%= @merchant_invoice.customer.first_name %> <%= @merchant_invoice.customer.last_name %><br>
+<br>
+<% @merchant_invoice.items.each do |item| %>
+
+Item name: <%= item.name %><br>
+<% item.invoice_items.each do |invoice_i| %>
+Quanity: <%= invoice_i.quantity %><br>
+Price: <%= invoice_i.unit_price%><br>
+Invoice Item Status: <%= invoice_i.status %><br>
+<br>
+<% end %>
+<% end %>
