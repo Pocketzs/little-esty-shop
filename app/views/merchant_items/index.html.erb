@@ -7,9 +7,12 @@
   </div>
 <% end %>
 <p>
-<%= link_to "Create New Item", new_merchant_item_path(@merchant.id) %></p>
 
 <hr>
+<h3>My Items</h3>
+<%= link_to "Create New Item", new_merchant_item_path(@merchant.id) %></p>
+<p>
+
 <div id="enabled-items">
   <% @merchant_items.enabled_items.each do |item| %>
     <div id=<%="item_#{item.id}"%>>
@@ -21,7 +24,7 @@
 </div>
 
 <div id="disabled-items">
-  <% @merchant_items.disabled_items.each do |item| %>
+  <% @merchant_items.each do |item| %>
     <div id=<%="item_#{item.id}"%>>
       <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
       <%= "Status: #{item.status}" %>
