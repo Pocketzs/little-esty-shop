@@ -1,6 +1,11 @@
 <h1>Invoice #<%= @invoice.id %></h1>
 
-<p>Status: <%= @invoice.status %></p>
+
+<%= form_with model: @invoice, local: true do |form| %>
+  <%= form.label :status %>
+  <%= form.select :status, ["in progress", "completed", "cancelled"] %>
+  <%= form.submit "Update Invoice Status" %>
+<% end %>
 <p>Created: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 <h3>Items:</h3>
