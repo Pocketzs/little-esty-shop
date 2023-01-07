@@ -10,7 +10,9 @@ class MerchantInvoicesController < ApplicationController
     @merchant_invoice = Invoice.find(params[:id])
   end
 
-  def update
-    
+  private
+
+  def merchant_invoice_params
+    params.permit(:status)
   end
 end

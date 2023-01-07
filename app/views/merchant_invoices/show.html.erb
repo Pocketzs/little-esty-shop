@@ -14,9 +14,9 @@ Quantity: <%= invoice_i.quantity %><br>
 Price: <%= invoice_i.unit_price%><br>
 
 <div id="item_<%= item.id %>">
-Invoice Item Status: <%=form_with url: merchant_invoice_path(@merchant_invoice.id, invoice_i.id),method: :patch, local: true do |f| %><br>
+Invoice Item Status: <%=form_with url: invoice_item_path(invoice_i), method: :patch, local: true do |f| %><br>
   <%= f.label :status, "status"  %>
-  <%= f.select :status, options_for_select([[:pending, "pending"], [:packed, "packed"], [:shipped, "shipped"]])%>
+  <%= f.select :status, options_for_select([[:pending, "pending"], [:packaged, "packaged"], [:shipped, "shipped"]], invoice_i.status)%>
   <%= f.submit "Submit"%>
 <% end %>
 <br>

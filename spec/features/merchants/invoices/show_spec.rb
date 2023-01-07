@@ -67,24 +67,22 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   describe "when I visit my merchant invoice show page" do
     it "I see that each invoice item status is a select field" do
       visit merchant_invoice_path(merchant1, invoice1)
-# save_and_open_page
+
       within "#item_#{item1.id}" do
         # save_and_open_page
         # require 'pry'; bindng.pry
-      # save_and_open_page
         expect(page).to have_select(:status, selected: "pending")
-        # expect(page).to have_content("#{invoice_item1.status}")
-        expect(page).to_not have_content(" #{invoice_item2.status}")
+      
       end
     end
 
-    xit "when I click this select field than I see a new status for the item " do
+    it "when I click this select field than I see a new status for the item " do
       visit merchant_invoice_path(merchant1, invoice1)
       
       within "#item_#{item1.id}" do
-        select("packed", from: "Status")
+        select("packaged", from: "status")
         click_button("Submit")
-
+# require 'pry'; binding.pry
         expect(current_path).to eq(merchant_invoice_path(merchant1, invoice1))
         # expect(page).to have_content("#{invoice_item1")
       end
