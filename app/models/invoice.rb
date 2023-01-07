@@ -6,8 +6,13 @@ class Invoice < ApplicationRecord
   enum status: ['in progress', 'completed', 'cancelled']
 
 
-  def total_revenue(merchant) 
-    self.items.where(merchant_id: merchant).sum("invoice_items.quanity * invoice_items.unit_price")
+  # def total_revenue(merchant) 
+  #   require 'pry'; binding.pry
+  #   self.items.where(merchant_id: merchant).sum("invoice_items.quantity * invoice_items.unit_price")
+  # end
+
+  def total_revenue
+    self.invoice_items.sum("quantity * unit_price")
   end
 end
 

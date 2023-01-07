@@ -39,7 +39,7 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   end
 
   describe "when I visit the merchant invoice show page" do
-    it "then I see all of my items on the invoice invluding: name, quanity, price, status" do #us 16
+    it "then I see all of my items on the invoice including: name, quanity, price, status" do #us 16
       visit merchant_invoice_path(merchant1.id, invoice1.id)
     
       expect(page).to have_content(item1.name)
@@ -52,8 +52,9 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
   describe "when I visit the merchant invoice show page" do #us 17
     it "I see the total revenue that will be generated from all of my items on the invoice" do
       visit merchant_invoice_path(merchant1, invoice1)
-
-      expect(page).to have_content("Total Revenue: item1.unit_price * invoice_item1.quantity")
+# save_and_open_page
+# require 'pry'; binding.pry
+      expect(page).to have_content(invoice1.total_revenue)
     end
   end
 end
