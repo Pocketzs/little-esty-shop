@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     # resources :merchants, except: [:new, :create, :destroy]
-    resources :merchants, only: [:index, :show, :update, :edit]
+    resources :merchants, only: [:index, :show, :update, :edit, :new, :create]
   end
 
 end
