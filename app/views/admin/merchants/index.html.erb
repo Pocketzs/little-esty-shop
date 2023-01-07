@@ -1,4 +1,4 @@
-<h1>Admin: Merchants</h1>
+<h1>Admin: Merchants Index Page</h1>
 <% @merchants.each do |merchant| %>
   <div id=<%="merchant_#{merchant.id}"%>>
     <p><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></p>
