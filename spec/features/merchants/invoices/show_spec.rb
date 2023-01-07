@@ -1,13 +1,8 @@
-# 16. Merchant Invoice Show Page: Invoice Item Information
+# 17. Merchant Invoice Show Page: Total Revenue
 
 # As a merchant
 # When I visit my merchant invoice show page
-# Then I see all of my items on the invoice including:
-# - Item name
-# - The quantity of the item ordered
-# - The price the Item sold for
-# - The Invoice Item status
-# And I do not see any information related to Items for other merchants
+# Then I see the total revenue that will be generated from all of my items on the invoice
 require "rails_helper" 
 
 RSpec.describe 'The Merchant Invoices Show page', type: :feature do
@@ -47,11 +42,18 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
     it "then I see all of my items on the invoice invluding: name, quanity, price, status" do #us 16
       visit merchant_invoice_path(merchant1.id, invoice1.id)
     
-save_and_open_page
       expect(page).to have_content(item1.name)
       expect(page).to have_content(invoice_item1.quantity)
       expect(page).to have_content(invoice_item1.unit_price)
       expect(page).to have_content(invoice_item1.status)
     end  
+  end
+
+  describe "when I visit the merchant invoice show page" do #us 17
+    it "I see the total revenue that will be generated from all of my items on the invoice" do
+      visit merchant_invoice_path(merchant1, invoice1)
+
+      expect(page).to have_content("Total Revenue: item1.unit_price * invoice_item1.quantity")
+    end
   end
 end
