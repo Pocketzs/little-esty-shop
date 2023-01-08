@@ -30,7 +30,6 @@
 <div id="top-five-items">
   <h3>Top Five Items By Revenue</h3>
   <% @merchant.top_five_items_ordered.each do |item|  %>
-   <% binding.pry %> 
-    <%= item.name %><%= item.item_revenue %><br>
+    <%= item.name %><%= item.revenue %><br>
   <% end %>
 </div>
