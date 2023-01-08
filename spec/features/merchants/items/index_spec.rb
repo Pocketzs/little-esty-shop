@@ -196,7 +196,10 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     # how many invoice items for that item
     # capture the invoices for that item
     # calculate total sales revenue
-  
+    
+    # find all invoice items for a merchants items
+    # multiply the unit_price x quantity
+    # then add that to all other instances of that
     it "shows the names of top 5 most popular items ranked by total revenue generated" do
       visit merchant_items_path(merchant1)       
 
