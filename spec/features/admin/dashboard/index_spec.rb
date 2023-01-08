@@ -1,7 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Dashboard Index Page" do
-  
+  let!(:customer) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
+  let!(:invoice1) {customer.invoices.create!(status: 0)}
+  let!(:invoice2) {customer.invoices.create!(status: 1)}
+  let!(:invoice3) {customer.invoices.create!(status: 2)}
+  let!(:merchant1) {Merchant.create!(name: "Hockey Stop and Shop")}
+  let!(:item1) {merchant1.items.create!(name: "Socks", description: "They're good socks.", unit_price: 1200)}
+  let!(:item2) {merchant1.items.create!(name: "Tape", description: "For taping.", unit_price: 600)}
+  let!(:invoice_item1) {InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 2, unit_price: 1200, status: 0)}
+  let!(:invoice_item2) {InvoiceItem.create!(invoice_id: invoice2.id, item_id: item2.id, quantity: 1, unit_price: 600, status: 0)}
+  let!(:invoice_item3) {InvoiceItem.create!(invoice_id: invoice3.id, item_id: item2.id, quantity: 1, unit_price: 0, status: 2)}
+
   describe "User Story 19" do
     it "header indicating admin dashboard" do
       # When I visit the admin dashboard (/admin)
@@ -36,7 +46,7 @@ RSpec.describe "Admin Dashboard Index Page" do
         # That have items that have not yet been shipped
         expect(page).to have_content("Invoice ##{invoice1.id}")
         expect(page).to have_content("Invoice ##{invoice2.id}")
-        expect(page).to have_content("Invoice ##{invoice3.id}")
+        expect(page).to_not have_content("Invoice ##{invoice3.id}")
         
         # And each invoice id links to that invoice's admin show page
         expect(page).to have_link(invoice1.id)
