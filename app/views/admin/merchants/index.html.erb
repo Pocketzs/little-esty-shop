@@ -1,6 +1,6 @@
 <h1>Admin: Merchants Index Page</h1>
 
-<div class="enabled-merchants">
+<div id="enabled-merchants">
 
 <h3>Enabled Merchants</h3>
   <% @merchants.enabled.each do |merchant| %>
@@ -12,7 +12,7 @@
   <% end %><br>
 </div>
 
-<div class="disabled-merchants">
+<div id="disabled-merchants">
 <h3>Disabled Merchants</h3>
   <% @merchants.disabled.each do |merchant| %>
     <div id=<%="merchant_#{merchant.id}"%>>
