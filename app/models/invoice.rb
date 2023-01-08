@@ -11,9 +11,9 @@ class Invoice < ApplicationRecord
 
   def self.invoice_items_pending
     self.joins(:invoice_items)
-    .where("invoice_items.status = 0")
-    .group(:id)
-    .order(:created_at)
+        .where("invoice_items.status = 0")
+        .group(:id)
+        .order(:created_at)
   end
 end
 
