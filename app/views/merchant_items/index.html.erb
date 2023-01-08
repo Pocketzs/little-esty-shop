@@ -11,7 +11,7 @@
     <div id=<%="item_#{item.id}"%>>
       <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
       <%= "Status: #{item.status}" %>
-      <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
+      <%= button_to "Disable", merchant_item_path(@merchant.id, item.id), params: {status: :disabled},method: :patch %>
     </div>
   <% end %>
 </div>

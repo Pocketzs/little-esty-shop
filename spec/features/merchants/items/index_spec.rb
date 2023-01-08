@@ -101,6 +101,54 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
         expect(page).to have_button("Enable")
       end
     end
+
+    it 'can change the status to enabled' do
+      visit merchant_items_path(merchant1)
+
+      within "#disabled-items" do
+        within "#item_#{item1.id}" do
+          click_button("Enable")
+        end
+      end
+
+      expect(current_path).to eq(merchant_items_path(merchant1))
+
+      within "#disabled-items" do
+        expect(page).to_not have_content(item1.name)
+      end
+
+      within "#enabled-items" do
+        within "#item_#{item1.id}" do
+          expect(page).to have_content(item1.name)
+          expect(page).to have_content("Status: enabled")
+          expect(page).to have_button("Disable")
+        end
+      end
+    end
+
+    it 'can change the status to disabled' do
+      visit merchant_items_path(merchant1)
+
+      within "#enabled-items" do
+        within "#item_#{item3.id}" do
+          click_button("Disable")
+        end
+      end
+
+      expect(current_path).to eq(merchant_items_path(merchant1))
+
+      within "#enabled-items" do
+        expect(page).to_not have_content(item3.name)
+      end
+
+      within "#disabled-items" do
+        within "#item_#{item3.id}" do
+          expect(page).to have_content(item3.name)
+          expect(page).to have_content("Status: disabled")
+          expect(page).to have_button("Enable")
+        end
+      end
+    end
   end
 
   describe "When I click the enable button button" do
