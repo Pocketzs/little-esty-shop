@@ -30,6 +30,6 @@
 <div id="top-five-items">
   <h3>Top Five Items By Revenue</h3>
   <% @merchant.top_five_items_ordered.each do |item|  %>
-    <%= item.name %><%= item.revenue %><br>
+    <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br>
   <% end %>
 </div>

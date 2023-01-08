@@ -27,12 +27,13 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   let!(:invoice3) {customer3.invoices.create!(status: 1)}
   let!(:invoice4) {customer4.invoices.create!(status: 1)}
   let!(:invoice5) {customer5.invoices.create!(status: 1)}
+  let!(:invoice6) {customer5.invoices.create!(status: 1)}
   
   let!(:invoice_item1) { InvoiceItem.create!(quantity: 1000, unit_price: 1000, item: item1, invoice: invoice1, status: 0) }
   let!(:invoice_item2) { InvoiceItem.create!(quantity: 500, unit_price: 1200, item: item2, invoice: invoice1, status: 1) }
   let!(:invoice_item3) { InvoiceItem.create!(quantity: 100, unit_price: 1749, item: item3, invoice: invoice2, status: 2) }
   let!(:invoice_item4) { InvoiceItem.create!(quantity: 1, unit_price: 100005, item: item4, invoice: invoice3, status: 1) }
-  let!(:invoice_item5) { InvoiceItem.create!(quantity: 0, unit_price: 5000, item: item5, invoice: invoice1, status: 0) }
+  let!(:invoice_item5) { InvoiceItem.create!(quantity: 0, unit_price: 5000, item: item5, invoice: invoice6, status: 0) }
   let!(:invoice_item6) { InvoiceItem.create!(quantity: 30, unit_price: 1000, item: item6, invoice: invoice2, status: 1) }
   let!(:invoice_item7) { InvoiceItem.create!(quantity: 1, unit_price: 1200, item: item7, invoice: invoice3, status: 2) }
   let!(:invoice_item8) { InvoiceItem.create!(quantity: 1, unit_price: 1749, item: item8, invoice: invoice4, status: 1) }
@@ -46,6 +47,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   let!(:transaction3) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice3 ) }
   let!(:transaction4) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice4 ) }
   let!(:transaction5) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice5 ) }
+  let!(:transaction5) { Transaction.create!(result: "failed", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice6 ) }
 
   describe 'when I visit the merchant items index page' do
     it 'shows a list of the names of all my items' do
@@ -74,7 +76,9 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
         expect(page).to have_link("#{item4.name}")
       end
 
-      click_link("#{item1.name}")
+      within "#item_#{item1.id}" do
+        click_link("#{item1.name}")
+      end
 
       expect(current_path).to eq(merchant_item_path(merchant1.id, item1.id))
     end
@@ -191,13 +195,54 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       visit merchant_items_path(merchant1)       
 
       within("#top-five-items") do
+        #merchant2's items
         expect(page).to_not have_content(item5.name)
-        save_and_open_page
+        expect(page).to_not have_content(item10.name)
+
+        #merchant1's items that don't make top 5
+        expect(page).to_not have_content(item7.name)
+        expect(page).to_not have_content(item8.name)
+        expect(page).to_not have_content(item9.name)
+
         expect(item1.name).to appear_before(item2.name)
         expect(item2.name).to appear_before(item3.name)
         expect(item3.name).to appear_before(item4.name)
         expect(item4.name).to appear_before(item6.name)
       end
+    end
+
+    it 'has each item name as a link to the merchant item show page for that item' do
+      visit merchant_items_path(merchant1)       
+
+      within("#top-five-items") do
+        expect(page).to have_link(item1.name)
+        expect(page).to have_link(item2.name)
+        expect(page).to have_link(item3.name)
+        expect(page).to have_link(item4.name)
+        expect(page).to have_link(item6.name)
+      end
+
+      within("#top-five-items") do
+        click_link(item1.name)
+      end
+
+      expect(current_path).to eq(merchant_item_path(merchant1, item1))
+    end
+
+    it 'only counts invoices with at least one successful transaction' do
+      visit merchant_items_path(merchant2)
+      expect(merchant2.items).to eq([item5, item10])
+
+      item_transaction_results1 = merchant2.items[0].transactions.map {|transaction| transaction[:result]}
+      item_transaction_results2 = merchant2.items[1].transactions.map {|transaction| transaction[:result]}
+
+      expect(item_transaction_results1.include?("success")).to be false
+      expect(item_transaction_results2.include?("success")).to be false
+      
+      within("#top-five-items") do
+        expect(page).to_not have_content(item5.name)
+        expect(page).to_not have_content(item10.name)
+      end      
     end
   end
 end 
