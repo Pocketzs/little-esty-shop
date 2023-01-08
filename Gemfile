@@ -50,6 +50,9 @@ group :development, :test do
   gem 'orderly'
   gem 'faker'
   gem 'factory_bot_rails'
+  # Hirb gem for Active Record table rendering
+  gem 'hirb'
+
 end
 
 group :development do

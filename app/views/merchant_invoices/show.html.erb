@@ -1,0 +1,26 @@
+<h1>Merchant Invoice Show Page</h1>
+
+
+Merchant Invoice: <%= @merchant_invoice.id %><br>
+Status:<%= @merchant_invoice.status %><br>
+Creation Date: <%=  @merchant_invoice.created_at.strftime("%A, %B %d, %Y") %><br>
+Customer Full Name: <%= @merchant_invoice.customer.first_name %> <%= @merchant_invoice.customer.last_name %><br>
+<br>
+<% @merchant_invoice.items.each do |item| %>
+
+Item name: <%= item.name %><br>
+<% item.invoice_items.each do |invoice_i| %>
+Quantity: <%= invoice_i.quantity %><br>
+Price: <%= invoice_i.unit_price%><br>
+
+<div id="item_<%= item.id %>">
+Invoice Item Status: <%=form_with url: invoice_item_path(invoice_i), method: :patch, local: true do |f| %><br>
+  <%= f.label :status, "status"  %>
+  <%= f.select :status, options_for_select([[:pending, "pending"], [:packaged, "packaged"], [:shipped, "shipped"]], invoice_i.status)%>
+  <%= f.submit "Submit"%>
+<% end %>
+<br>
+</div>
+<% end %>
+<% end %>
+Total Revenue: <%= @merchant_invoice.total_revenue %>
