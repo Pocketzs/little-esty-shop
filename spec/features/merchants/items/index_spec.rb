@@ -148,4 +148,19 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       end
     end
   end
+
+  describe "5 Most Popular Merchant Items" do #us12
+    it "shows the names of top 5 most popular items ranked by total revenue generated" do
+      visit merchant_items_path(merchant1)       
+      
+      within("#top-five-items") do
+        expect(page).to have_content(item3.name)
+        expect(page).to have_content(item4.name)
+      end
+    end
+
+    xit "has an 'Disabled Items' section" do
+      visit merchant_items_path(merchant1)       
+    end
+  end
 end 
