@@ -6,17 +6,11 @@ class Invoice < ApplicationRecord
   enum status: ['in progress', 'completed', 'cancelled']
 
   def total_revenue
-    invoices = Invoice.joins(:invoice_items)
-                      .select("invoices.id, 
-                       SUM(invoice_items.quantity * invoice_items.unit_price) 
-                       AS total")
-                      .group("invoices.id")
-                      .where("invoices.id = #{self.id}")
-
-    invoices.first.total
+    self.invoice_items.sum("quantity * unit_price")
   end
 
   def self.invoice_items_pending
     self.joins(:invoice_items).where("invoice_items.status = 0").group(:id)
   end
 end
+

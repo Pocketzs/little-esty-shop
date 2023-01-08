@@ -6,7 +6,12 @@ class MerchantInvoicesController < ApplicationController
   end
 
   def show
-    # require 'pry'; binding.pry
     @merchant_invoice = Invoice.find(params[:id])
+  end
+
+  private
+
+  def merchant_invoice_params
+    params.permit(:status)
   end
 end
