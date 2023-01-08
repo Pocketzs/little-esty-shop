@@ -7,7 +7,6 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   def top_five_items_ordered
-    binding.pry
     self.items
   end
 end
