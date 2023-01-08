@@ -6,7 +6,22 @@ class Merchant < ApplicationRecord
 
   validates_presence_of :name
 
+  def top_five_items_ordered_names_only
+    self.items
+        .joins(:transactions)
+        .group(:id)
+        .where(transactions: {result: "success"})
+        .order(Arel.sql("SUM(invoice_items.unit_price * invoice_items.quantity) desc"))
+        .limit(5)
+  end
+
   def top_five_items_ordered
     self.items
+        .joins(:transactions)
+        .group(:id)
+        .where(transactions: {result: "success"})
+        .select("items.*, SUM(invoice_items.unit_price * invoice_items.quantity) as item_revenue")
+        .order("item_revenue desc")
+        .limit(5)
   end
 end

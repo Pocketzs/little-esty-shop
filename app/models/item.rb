@@ -8,4 +8,6 @@ class Item < ApplicationRecord
   validates_numericality_of :unit_price, only_integer: true
 
   enum status: [:disabled, :enabled]
+
+  
 end

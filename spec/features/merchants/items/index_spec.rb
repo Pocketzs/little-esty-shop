@@ -191,24 +191,16 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   end
 
   describe "5 Most Popular Merchant Items" do #us12
-    # items belong to a merchant
-    # list of all merchants items
-    # how many invoice items for that item
-    # capture the invoices for that item
-    # calculate total sales revenue
-    
-    # find all invoice items for a merchants items
-    # multiply the unit_price x quantity
-    # then add that to all other instances of that
     it "shows the names of top 5 most popular items ranked by total revenue generated" do
       visit merchant_items_path(merchant1)       
 
       within("#top-five-items") do
-        expect(page).to have_content(item1.name)
-        expect(page).to have_content(item2.name)
-        expect(page).to have_content(item3.name)
-        expect(page).to have_content(item4.name)
-        expect(page).to have_content(item5.name)
+        expect(page).to_not have_content(item5.name)
+        save_and_open_page
+        expect(item1.name).to appear_before(item2.name)
+        expect(item2.name).to appear_before(item3.name)
+        expect(item3.name).to appear_before(item4.name)
+        expect(item4.name).to appear_before(item6.name)
       end
     end
   end
