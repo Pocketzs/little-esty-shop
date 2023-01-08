@@ -88,17 +88,22 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     it "next to each item name I see a button to enable or disable that item" do
       visit merchant_items_path(merchant1)
 
-      within "#item_#{item1.id}" do
-        expect(page).to have_button("Enable")
+      within "#disabled-items" do
+        within "#item_#{item1.id}" do
+          expect(page).to have_button("Enable")
+        end
+        within "#item_#{item2.id}" do
+         expect(page).to have_button("Enable")
+        end
       end
-      within "#item_#{item2.id}" do
-       expect(page).to have_button("Enable")
-      end
-      within "#item_#{item3.id}" do
-       expect(page).to have_button("Enable")
-      end
-      within "#item_#{item4.id}" do
-        expect(page).to have_button("Enable")
+
+      within "#enabled-items" do
+        within "#item_#{item3.id}" do
+         expect(page).to have_button("Disable")
+        end
+        within "#item_#{item4.id}" do
+          expect(page).to have_button("Disable")
+        end
       end
     end
 
@@ -291,6 +296,19 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
         expect(page).to_not have_content(item5.name)
         expect(page).to_not have_content(item10.name)
       end      
+    end
+  end
+
+  describe 'As a merchant' do
+    describe 'When I visit my items index page' do
+      it 'Then next to each of the 5 most popular items I see the date
+      with the most sales for each item.' do
+        
+      end
+
+      it 'And I see a label “Top selling date for <item name> was <date with most sales>"' do
+        
+      end
     end
   end
 end 
