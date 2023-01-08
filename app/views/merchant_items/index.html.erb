@@ -11,7 +11,7 @@
     <div id=<%="item_#{item.id}"%>>
       <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
       <%= "Status: #{item.status}" %>
-      <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
+      <%= button_to "Disable", merchant_item_path(@merchant.id, item.id), params: {status: :disabled},method: :patch %>
     </div>
   <% end %>
 </div>
@@ -24,5 +24,12 @@
       <%= "Status: #{item.status}" %>
       <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
     </div>
+  <% end %>
+</div>
+
+<div id="top-five-items">
+  <h3>Top Five Items By Revenue</h3>
+  <% @merchant.top_five_items_ordered.each_with_index do |item, index|  %>
+    <%= index+1 %>. <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br>
   <% end %>
 </div>

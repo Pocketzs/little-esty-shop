@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Admin Invoices Show" do
   let!(:customer) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
-  let!(:invoice1) {customer.invoices.create!(status: 0)}
-  let!(:invoice2) {customer.invoices.create!(status: 0)}
+  let!(:invoice1) {customer.invoices.create!(status: 1)}
+  let!(:invoice2) {customer.invoices.create!(status: 1)}
 
   describe "User Story 33" do
     it "lists specific invoice info" do
