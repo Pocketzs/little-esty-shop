@@ -30,6 +30,10 @@
 <div id="top-five-items">
   <h3>Top Five Items By Revenue</h3>
   <% @merchant.top_five_items_ordered.each_with_index do |item, index|  %>
-    <%= index+1 %>. <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br>
+    <div id="top-item-<%="#{item.id}"%>">
+      <%= index+1 %>. <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br><p>
+      Top Selling Day For <%= item.name %> was <%= item.top_selling_day %>!
+      <p>
+    </div>
   <% end %>
 </div>
