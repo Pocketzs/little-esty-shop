@@ -7,7 +7,6 @@ class Merchant < ApplicationRecord
 
 
   def top_customers
-    
     self.customers
     .joins(:transactions)
     .where(transactions: {result: 1} )

@@ -85,6 +85,7 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
       within ("#customer_id#{customer3.id}") do
         expect(page).to have_content(customer3.transactions.count)
       end
+      save_and_open_page
       within ("#customer_id#{customer4.id}") do
         expect(page).to have_content(customer4.transactions.count)
       end

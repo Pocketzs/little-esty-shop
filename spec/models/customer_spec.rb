@@ -4,6 +4,10 @@ RSpec.describe Customer, type: :model do
   let!(:customer) { Customer.create!(first_name: "A Name", last_name: "A Last Name") }
   describe 'the customer model' do
     it { should have_many :invoices }
+    it { should have_many(:transactions).through(:invoices) }
+    it { should have_many(:invoice_items).through(:invoices) }
+    it { should have_many(:items).through(:invoice_items) }
+    it { should have_many(:merchants).through(:items) }
   end
   
   describe 'validations' do
