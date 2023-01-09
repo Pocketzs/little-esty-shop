@@ -299,16 +299,13 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     end
   end
 
-  describe 'As a merchant' do
-    describe 'When I visit my items index page' do
-      it 'Then next to each of the 5 most popular items I see the date
-      with the most sales for each item.' do
-        
-      end
+  describe 'When I visit my items index page' do
+    it 'next to each of the 5 most popular items I see the date with most sales for each item' do
+      
+    end
 
-      it 'And I see a label “Top selling date for <item name> was <date with most sales>"' do
-        
-      end
+    it 'And I see a label Top selling date for <item name> was <date with most sales>"' do
+      
     end
   end
 end 
