@@ -8,4 +8,9 @@ class Item < ApplicationRecord
   validates_numericality_of :unit_price, only_integer: true
 
   enum status: [:disabled, :enabled]
+
+  def top_selling_day
+    self.invoice_items.joins(:invoice).select(Arel.sql("invoices.id, invoices.created_at"))
+    .order(Arel.sql("invoice_items.unit_price * invoice_items.quantity  desc")).limit(1).first.created_at
+  end
 end
