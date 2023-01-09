@@ -2,3 +2,12 @@
 
 <%= link_to "Merchant Items Index", url: "/merchants/#{@merchant.id}/items" %>
 <%= link_to "Merchant Invoices Index", url: "/merchants/#{@merchant.id}/invoices" %>
+
+<div id="top_customers">
+  <h2>Top Customers:</h2>
+  <ul>
+    <% @merchant.top_customers.each do |customer| %>
+      <li id="customer_id<%= customer.id %>">Name: <%= customer.first_name %> <%= customer.last_name %>, successful transactions: <%= customer.count_successful_transactions %></li>
+    <% end %>
+  </ul>
+</div>
