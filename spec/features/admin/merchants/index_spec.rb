@@ -75,12 +75,46 @@ RSpec.describe "Admin Merchants Index" do
       end
     end
   end
-
-  describe "User Story 30" do
-    it "top 5 merchants by revenue" 
   
+  describe "User Story 30" do
+    let!(:merchant4) {create(:merchant)}
+    let!(:merchant5) {create(:merchant)}
+    let!(:merchant6) {create(:merchant)}
+    let!(:customer) {create(:customer)}
+
+    let!(:item1) {create(:item, merchant_id: merchant1.id)}
+    let!(:item2) {create(:item, merchant_id: merchant2.id)}
+    let!(:item3) {create(:item, merchant_id: merchant3.id)}
+    let!(:item4) {create(:item, merchant_id: merchant4.id)}
+    let!(:item5) {create(:item, merchant_id: merchant5.id)}
+    let!(:item6) {create(:item, merchant_id: merchant6.id)}
+
+    let!(:invoice1) {create(:invoice, customer_id: customer.id)}
+    let!(:invoice2) {create(:invoice, customer_id: customer.id)}
+    let!(:invoice3) {create(:invoice, customer_id: customer.id)}
+    let!(:invoice4) {create(:invoice, customer_id: customer.id)}
+    let!(:invoice5) {create(:invoice, customer_id: customer.id)}
+    let!(:invoice6) {create(:invoice, customer_id: customer.id)}
+
+    let!(:invoice_item1) {create(:invoice_item, invoice_id: invoice1.id, item_id:item1.id, quantity: 1, unit_price: 100)}
+    let!(:invoice_item2) {create(:invoice_item, invoice_id: invoice2.id, item_id:item2.id, quantity: 1, unit_price: 200)}
+    let!(:invoice_item3) {create(:invoice_item, invoice_id: invoice3.id, item_id:item3.id, quantity: 1, unit_price: 300)}
+    let!(:invoice_item4) {create(:invoice_item, invoice_id: invoice4.id, item_id:item4.id, quantity: 1, unit_price: 400)}
+    let!(:invoice_item5) {create(:invoice_item, invoice_id: invoice5.id, item_id:item5.id, quantity: 1, unit_price: 500)}
+    let!(:invoice_item6) {create(:invoice_item, invoice_id: invoice6.id, item_id:item6.id, quantity: 1, unit_price: 600)}
+
+    let!(:transaction1) {create(:transaction, invoice_id: invoice1.id, result: 1)}
+    let!(:transaction2) {create(:transaction, invoice_id: invoice2.id, result: 1)}
+    let!(:transaction3) {create(:transaction, invoice_id: invoice3.id, result: 1)}
+    let!(:transaction4) {create(:transaction, invoice_id: invoice4.id, result: 1)}
+    let!(:transaction5) {create(:transaction, invoice_id: invoice5.id, result: 1)}
+    let!(:transaction6) {create(:transaction, invoice_id: invoice6.id, result: 1)}
+
+    it "top 5 merchants by revenue" do
       # As an admin,
       # When I visit the admin merchants index
+      visit admin_merchants_path
+    
       # Then I see the names of the top 5 merchants by total revenue generated
       # And I see that each merchant name links to the admin merchant show page for that merchant
       # And I see the total revenue generated next to each merchant name
@@ -90,6 +124,6 @@ RSpec.describe "Admin Merchants Index" do
       # Only invoices with at least one successful transaction should count towards revenue
       # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
       # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
-  
+    end
   end
 end
