@@ -2,5 +2,5 @@
 
 <!-- this `.each` looks very similar to merchant invoices index. let's look into using a partial! -->
 <% @invoices.each do |invoice| %>
-  <%= link_to "Invoice ##{invoice.id}", "/admin/invoices/#{invoice.id}" %>
+  <%= link_to "Invoice ##{invoice.id}", "/admin/invoices/#{invoice.id}" %><br>
 <% end %>
