@@ -13,3 +13,65 @@
  *= require_tree .
  *= require_self
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;600&display=swap');
+
+/* Fonts */
+h1 {
+  font-family: 'Recursive', sans-serif;
+  font-size: xx-large;
+}
+
+h2 {
+  font-family: 'Recursive', sans-serif;
+  font-size: x-large;
+}
+
+h3 {
+  font-family: 'Recursive', sans-serif;
+  font-size: large;
+}
+
+body, p {
+  font-family: 'Recursive', sans-serif;
+  font-weight: 400;
+  font-size: small;
+  background-color: #f0f0f0;
+}
+
+b {
+  font-family: 'Recursive', sans-serif;
+  font-weight: 600;
+  font-size: small;
+}
+
+/* Buttons */
+input {
+  background-color: white;
+  border: 1px, black;
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Recursive', sans-serif;
+  font-weight: 600;
+  font-size: x-small;
+}
+
+/* Split Columns */
+#main {
+  display: flex;
+  width: 100%;
+}
+
+#left {
+  float: left;
+  flex: 50%; 
+  border: 2px, green;
+}
+
+#right {
+  float: right;
+  flex: 50%;
+  border: 2px, red;
+}
