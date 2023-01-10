@@ -4,6 +4,31 @@
 
 "Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
 
+### Platform Organization
+
+"Little Esty Shop" is composed of 6 major features, divided to be viewed as a Merchant or an Admin.
+---
+The features are:
+Admin/
+  - Dashboard
+  - Merchants (Index & Show)
+  - Invoices (Index & Show)
+
+Merchant/
+  - Dashboard
+  - Items (Index & Show)
+  - Invoices (Index & Show)
+
+---
+
+-- Merchant Dashboard
+  - The Merchant Dashboard feature serves as a landing page for a specific Merchant instance. There are links to the other Merchant features (Items Index & Invoices Index).
+  - The Merchant Dashboard contains statistics related to this Merchant's relationships, using Active Record.
+
+-- Merchant Items
+  - The Merchant Items feature perform Active Record and CRUD behaviors on Item instances only related to the particular Merchant.
+  - Specific CRUD features include Enabling / Disabling (status change), Create an Item, Update an Item (show page)
+  - Specific Active Record features include 
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships
 - Utilize advanced routing techniques including namespacing to organize and group like functionality together.
