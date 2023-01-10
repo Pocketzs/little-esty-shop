@@ -5,6 +5,7 @@ RSpec.describe Item, type: :model do
     it { should belong_to :merchant }
     it { should have_many :invoice_items}
     it { should have_many(:invoices).through(:invoice_items)}  
+    it { should have_many(:customers).through(:invoices)}  
   end
 
   describe 'validations' do
@@ -12,5 +13,6 @@ RSpec.describe Item, type: :model do
     it { should validate_presence_of :description }
     it { should validate_presence_of :unit_price }
     it { should validate_numericality_of(:unit_price).only_integer }
+    it { should define_enum_for(:status) }
   end
 end
