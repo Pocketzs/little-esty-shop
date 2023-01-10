@@ -22,7 +22,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   let!(:customer4) {Customer.create!(first_name: "Sarah", last_name: "Sarington")}
   let!(:customer5) {Customer.create!(first_name: "Logan", last_name: "Lofferson")}
 
-  let!(:invoice1) {customer1.invoices.create!(status: 1)}
+  let!(:invoice1) {customer1.invoices.create!(status: 1, created_at: "2022-10-25")}
   let!(:invoice2) {customer2.invoices.create!(status: 1)}
   let!(:invoice3) {customer3.invoices.create!(status: 1)}
   let!(:invoice4) {customer4.invoices.create!(status: 1)}
@@ -231,7 +231,7 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       end
     end
 
-    it "has an 'Disabled Items' section" do
+    it "has a 'Disabled Items' section" do
       visit merchant_items_path(merchant1)       
 
       within("#disabled-items") do
@@ -299,16 +299,12 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
     end
   end
 
-  describe 'As a merchant' do
-    describe 'When I visit my items index page' do
-      it 'Then next to each of the 5 most popular items I see the date
-      with the most sales for each item.' do
-        
-      end
-
-      it 'And I see a label “Top selling date for <item name> was <date with most sales>"' do
-        
-      end
+  describe 'when I visit my items index page' do
+    it 'next to each of the 5 most popular items I see the date with most sales for each item' do
+      visit merchant_items_path(merchant1)
+      within("#top-item-#{item1.id}") do
+        expect(page).to have_content("10/25/2022")
+      end      
     end
   end
 end 

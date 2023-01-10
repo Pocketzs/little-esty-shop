@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 
+
+# merchant1 = Merchant.create!(name: "Billy's Butters")
+# Item.create!(name: "Tissues", description: "Wipes Nose", unit_price: 1000, merchant: merchant1)
