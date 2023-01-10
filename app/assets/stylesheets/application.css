@@ -22,7 +22,12 @@ h1 {
   font-size: xx-large;
 }
 
-h2, h3 {
+h2 {
+  font-family: 'Recursive', sans-serif;
+  font-size: x-large;
+}
+
+h3 {
   font-family: 'Recursive', sans-serif;
   font-size: large;
 }
@@ -31,6 +36,7 @@ body, p {
   font-family: 'Recursive', sans-serif;
   font-weight: 400;
   font-size: small;
+  background-color: #f0f0f0;
 }
 
 b {
