@@ -11,3 +11,10 @@
     <% end %>
   </ul>
 </div>
+
+<div id="ready-to-ship">
+<h2>Ready To Ship Items</h2>
+  <% @merchant.ready_to_ship.each do |invoice_item| %>
+    <%= invoice_item.item_name %>
+  <% end %>
+</div>
