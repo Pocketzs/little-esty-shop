@@ -32,6 +32,7 @@ RSpec.describe "Admin Dashboard Index Page" do
   end
   
   describe "User Story 21" do
+    # worth it to make a helper file for our let! blocks?
     let!(:merchant1) {create(:merchant)}
     
     let!(:item1)     {create(:item, merchant_id: merchant1.id)}
