@@ -10,4 +10,10 @@ RSpec.describe Merchant, type: :model do
   describe 'validations' do
     it { should validate_presence_of :name } 
   end
+
+  describe 'methods' do
+    describe 'class methods' do
+      it "top 5 merchants by revenue"
+    end
+  end
 end
