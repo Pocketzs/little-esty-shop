@@ -106,10 +106,36 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
     end
 
     #us4
-    it "has a section for 'Items Ready To Ship' with a list of names of all items" do
+    it "has a section for 'Items Ready To Ship' with a list of names of all items with invoice id" do
       within("#ready-to-ship") do
-        expect(page).to have_content(item2.name)
+        within("#rts-item-#{item2.id}") do
+          expect(page).to have_content(item2.name)
+          expect(page).to have_content(invoice7.id)
+        end
+        within("#rts-item-#{item3.id}") do
+          expect(page).to have_content(item3.name)
+          expect(page).to have_content(invoice8.id)
+        end
+        within("#rts-item-#{item5.id}") do
+          expect(page).to have_content(item5.name)
+          expect(page).to have_content(invoice10.id)
+        end
+        within("#rts-item-#{item6.id}") do
+          expect(page).to have_content(item6.name)
+          expect(page).to have_content(invoice11.id)
+        end
       end
+    end
+
+    it "goes to the appropriate merchant invoice show page when link is clicked" do
+      within("#ready-to-ship") do
+        within("#rts-item-#{item2.id}") do
+          expect(page).to have_content(item2.name)
+          expect(page).to have_content(invoice7.id)
+          click_link("#{invoice7.id}")
+        end
+      end
+      expect(current_path).to eq(merchant_invoice_path(merchant.id, invoice7.id))
     end
   end
 end
