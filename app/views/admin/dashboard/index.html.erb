@@ -1,0 +1,23 @@
+<p>"Admin Dashboard Index Page"</p>
+
+<p><%= link_to "Admin Merchant Index", admin_merchants_path %></p>
+<p><%= link_to "Admin Invoice Index", admin_invoices_path %></p>
+
+<div id="incomplete_invoices">
+  <h2>Incomplete Invoices:</h2>
+  <ul>
+    <% @incomplete_invoices.each do |invoice| %>
+    <li id="invoice_id_<%= invoice.id %>">Invoice #<%= link_to invoice.id, admin_invoice_path(invoice.id) %>
+     Created: <%= invoice.created_at.strftime("%A, %B %d, %Y") %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="top_customers">
+  <h2>Top Customers:</h2>
+  <ul>
+    <% @top_customers.each do |customer| %>
+      <li id="customer_id<%= customer.id %>">Name: <%= customer.first_name %> <%= customer.last_name %>, successful transactions: <%= customer.count_successful_transactions %></li>
+    <% end %>
+  </ul>
+</div>

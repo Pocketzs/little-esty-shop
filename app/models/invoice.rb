@@ -9,4 +9,11 @@ class Invoice < ApplicationRecord
   def total_revenue
     self.invoice_items.sum("quantity * unit_price")
   end
+
+  def self.invoice_items_pending
+    self.joins(:invoice_items)
+        .where("invoice_items.status = 0")
+        .group(:id)
+        .order(:created_at)
+  end
 end
