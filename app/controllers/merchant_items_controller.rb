@@ -2,7 +2,6 @@ class MerchantItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @merchant_items = @merchant.items
-      # require 'pry'; binding.pry
   end
 
   def show
@@ -14,9 +13,8 @@ class MerchantItemsController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
     item = Item.find(params[:id])
-    # binding.pry
+    
     if params[:status]
       item.update(status: params[:status])
       redirect_to merchant_items_path(item.merchant_id, item.id)

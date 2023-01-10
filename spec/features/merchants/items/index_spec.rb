@@ -13,7 +13,6 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe 'when I visit the merchant items index page' do
     it 'shows a list of the names of all my items' do
       visit merchant_items_path(merchant1)
-      # visit "/merchants/#{merchant1.id}/items"
 
       expect(page).to have_content(item1.name)
       expect(page).to have_content(item2.name)
