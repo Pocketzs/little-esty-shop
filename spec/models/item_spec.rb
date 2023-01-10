@@ -15,4 +15,19 @@ RSpec.describe Item, type: :model do
     it { should validate_numericality_of(:unit_price).only_integer }
     it { should define_enum_for(:status) }
   end
+
+  describe 'methods' do
+    let!(:item1) {create(:item)}
+    let!(:customer1) {create(:customer)}
+    let!(:invoice1) {create(:invoice, customer_id: customer1.id, created_at: "2022/06/26")}
+    let!(:invoice2) {create(:invoice, customer_id: customer1.id, created_at: "2000/02/08")}
+    let!(:invoice_item1) {create(:invoice_item, item_id: item1.id, invoice_id: invoice1.id, quantity: 20, unit_price: 1200)}
+    let!(:invoice_item2) {create(:invoice_item, item_id: item1.id, invoice_id: invoice2.id, quantity: 1, unit_price: 20)}
+
+    describe 'instance methods' do
+      it "top_selling_day" do
+        expect(item1.top_selling_day.strftime("%m/%d/%Y")).to eq("06/26/2022")
+      end
+    end
+  end
 end

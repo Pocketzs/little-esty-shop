@@ -302,14 +302,9 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
   describe 'when I visit my items index page' do
     it 'next to each of the 5 most popular items I see the date with most sales for each item' do
       visit merchant_items_path(merchant1)
-save_and_open_page
       within("#top-item-#{item1.id}") do
         expect(page).to have_content("10/25/2022")
       end      
-    end
-
-    xit 'And I see a Top selling date for <item name> was <date with most sales>' do
-      
     end
   end
 end 
