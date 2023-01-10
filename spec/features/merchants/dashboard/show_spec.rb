@@ -56,7 +56,7 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
   end
   
   describe 'As a merchant when I visit my merchant dashboard' do
-    it "has a section for 'Items Ready to Ship'" do
+    it "has a section for 'Items Ready to Ship'" do #us5
       within ('#ready_to_ship') do
         expect(page).to have_content(merchant.name)
       end
