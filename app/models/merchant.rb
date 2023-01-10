@@ -14,8 +14,8 @@ class Merchant < ApplicationRecord
   end
 
   def ready_to_ship
-    invoice_items
-    .joins(:invoice)
-    .where(status: [:pending, :packaged])
+    items
+    .joins(:invoice_items)
+    .select('items.*, invoice_items.invoice_id, invoice_items.status as invoice_item_status').where('invoice_items.status = ?', 1)
   end
 end
