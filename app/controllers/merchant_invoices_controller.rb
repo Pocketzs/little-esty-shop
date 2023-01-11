@@ -8,10 +8,4 @@ class MerchantInvoicesController < ApplicationController
   def show
     @merchant_invoice = Invoice.find(params[:id])
   end
-
-  private
-
-  def merchant_invoice_params
-    params.permit(:status)
-  end
 end
