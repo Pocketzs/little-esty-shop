@@ -156,4 +156,9 @@ RSpec.describe "Admin Merchants Index" do
       end
     end
   end
+
+  describe "User Story 31" do
+    it "best day for top merchant"
+
+  end
 end
