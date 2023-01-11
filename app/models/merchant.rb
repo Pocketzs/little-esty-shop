@@ -25,7 +25,8 @@ class Merchant < ApplicationRecord
         .select(Arel.sql("invoices.id, invoice_items.id, invoices.created_at, 
           invoice_items.quantity, invoice_items.unit_price"))
         .order(Arel.sql("invoice_items.quantity * invoice_items.unit_price desc")).pluck("invoices.created_at").first
-
+  end
+  
   def top_customers
     self.customers
     .joins(:transactions)
