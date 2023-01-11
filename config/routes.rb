@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   # resource :admin, only: :index
 
   namespace :admin do
@@ -10,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only:[] do
-    resources :items, only:[:index, :show, :edit, :update], controller: "merchant_items"
+    resources :items, except: [:destroy], controller: "merchant_items"
     resources :invoices, except: [:destroy], controller: "merchant_invoices"
   end
 

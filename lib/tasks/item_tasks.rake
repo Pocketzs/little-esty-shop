@@ -10,6 +10,6 @@ namespace :csv_load do
       Item.create!(row.to_hash)
     end
     
-    ActiveRecord::Base.connection.reset_pk_sequence!('item')
+    ActiveRecord::Base.connection.reset_pk_sequence!('items')
   end
 end
