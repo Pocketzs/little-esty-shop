@@ -22,18 +22,18 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
   let!(:customer5) { create(:customer) } 
   let!(:customer6) { create(:customer) } 
   
-  let!(:invoice1) { create(:invoice, customer_id: customer1.id, created_at: DateTime.new(2018, 01, 11, 20, 10, 0)) }
-  let!(:invoice2) { create(:invoice, customer_id: customer2.id, created_at: DateTime.new(2018, 02, 12, 20, 10, 0)) }
-  let!(:invoice3) { create(:invoice, customer_id: customer3.id, created_at: DateTime.new(2018, 03, 13, 20, 10, 0)) }
-  let!(:invoice4) { create(:invoice, customer_id: customer4.id, created_at: DateTime.new(2019, 04, 13, 20, 10, 0)) }
-  let!(:invoice5) { create(:invoice, customer_id: customer5.id, created_at: DateTime.new(2019, 05, 13, 20, 10, 0)) }
-  let!(:invoice6) { create(:invoice, customer_id: customer6.id, created_at: DateTime.new(2019, 06, 13, 20, 10, 0)) }
-  let!(:invoice7) { create(:invoice, customer_id: customer1.id, created_at: DateTime.new(2020, 01, 13, 20, 10, 0)) }
-  let!(:invoice8) { create(:invoice, customer_id: customer2.id, created_at: DateTime.new(2020, 02, 13, 20, 10, 0)) }
-  let!(:invoice9) { create(:invoice, customer_id: customer3.id, created_at: DateTime.new(2020, 03, 13, 20, 10, 0)) }
-  let!(:invoice10) { create(:invoice, customer_id: customer4.id, created_at: DateTime.new(2021, 10, 13, 20, 10, 0)) }
-  let!(:invoice11) { create(:invoice, customer_id: customer5.id, created_at: DateTime.new(2021, 11, 13, 20, 10, 0)) }
-  let!(:invoice12) { create(:invoice, customer_id: customer6.id, created_at: DateTime.new(2021, 12, 13, 20, 10, 0)) }
+  let!(:invoice1) { create(:invoice, customer_id: customer1.id) }
+  let!(:invoice2) { create(:invoice, customer_id: customer2.id) }
+  let!(:invoice3) { create(:invoice, customer_id: customer3.id) }
+  let!(:invoice4) { create(:invoice, customer_id: customer4.id) }
+  let!(:invoice5) { create(:invoice, customer_id: customer5.id) }
+  let!(:invoice6) { create(:invoice, customer_id: customer6.id) }
+  let!(:invoice7) { create(:invoice, customer_id: customer1.id) }
+  let!(:invoice8) { create(:invoice, customer_id: customer2.id) }
+  let!(:invoice9) { create(:invoice, customer_id: customer3.id) }
+  let!(:invoice10) { create(:invoice, customer_id: customer4.id) }
+  let!(:invoice11) { create(:invoice, customer_id: customer5.id) }
+  let!(:invoice12) { create(:invoice, customer_id: customer6.id) }
 
   let!(:transaction1) { 1.times do create(:transaction, invoice_id: invoice1.id, result: 1) end }
   let!(:transaction2) { 2.times do create(:transaction, invoice_id: invoice2.id, result: 1) end }
@@ -142,9 +142,9 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
     it "in the section for 'Items Ready to Ship'" do
       # # In the section for "Items Ready to Ship"
       within "#ready-to-ship" do
-        save_and_open_page
-        # binding.pry
         # # Next to each Item name I see the date that the invoice was created
+        save_and_open_page
+        # expect()
         # # And I see the date formatted like "Monday, July 18, 2019"
         # # And I see that the list is ordered from oldest to newest
       end
