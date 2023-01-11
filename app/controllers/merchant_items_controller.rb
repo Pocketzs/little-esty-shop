@@ -1,7 +1,7 @@
 class MerchantItemsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @merchant_items = @merchant.items
+    @merchant_items = @merchant.items_ordered_by_most_recently_updated_at
   end
 
   def show
