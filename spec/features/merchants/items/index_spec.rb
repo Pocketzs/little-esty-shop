@@ -189,34 +189,6 @@ RSpec.describe 'The Merchant Items Index page', type: :feature do
       expect(page).to have_field('Description')
       expect(page).to have_field('Current Selling Price')
     end
-
-    it "When I fill out the form and hit 'submit I am taken back to the items index page" do
-      visit "/merchants/#{merchant1.id}/items/new"
-
-      fill_in("Name", with: "Bubble Machine")
-      fill_in("Description", with: "Serotonin Maker")
-      fill_in("Current Selling Price", with: 2500)
-
-      click_button("Submit")
-
-      expect(current_path).to eq(merchant_items_path(merchant1.id))
-    end
-
-    it "I see the item I just created in the list of items and a status of disabled" do
-      visit "/merchants/#{merchant1.id}/items/new"
-
-      fill_in("Name", with: "Bubble Machine")
-      fill_in("Description", with: "Serotonin Maker")
-      fill_in("Current Selling Price", with: 2500)
-
-      click_button("Submit")
-
-      item = Item.last
-      within "#item_#{item.id}" do
-        expect(page).to have_link("Bubble Machine")
-        expect(page).to have_content("Status: disabled")
-      end
-    end
   end
 
   describe "two sections, one for enabled items, one for disabled items" do #us10

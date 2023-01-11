@@ -69,5 +69,27 @@ RSpec.describe Merchant, type: :model do
         expect(merchant1.top_five_items_ordered).to eq([item1, item2, item3, item4, item6])
       end
     end
+
+    describe "#items_ordered_by_most_recently_updated_at" do
+      it 'returns an array of a merchants items ordered by their creation time' do
+        merchant1 = Merchant.create!(name: "Harvey")
+        merchant2 = Merchant.create!(name: "John")
+        item3 = merchant1.items.create!(name: "Saw", description:"Cut things", unit_price: 2000)
+        item1 = merchant1.items.create!(name: "Hammer", description:"Hit things", unit_price: 1200)
+        item2 = merchant1.items.create!(name: "Nail", description:"Secure things", unit_price: 22)
+
+        merchant2.items << item1
+        merchant2.items << item2
+        merchant2.items << item3
+
+        expect(item3.created_at).to be < item1.created_at
+        expect(item1.created_at).to be < item2.created_at
+
+        expect(item3.updated_at).to be > item2.updated_at
+        expect(item2.updated_at).to be > item1.updated_at
+
+        expect(merchant2.items_ordered_by_most_recently_updated_at).to eq([item3, item2, item1])
+      end
+    end
   end
 end
