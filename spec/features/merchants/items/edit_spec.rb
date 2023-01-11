@@ -25,7 +25,7 @@ RSpec.describe 'The Merchant Items Show page', type: :feature do
       expect(page).to have_current_path(merchant_item_path(merchant1, item1))
       expect(page).to have_content("Name: Ipad")
       expect(page).to have_content("Description: Tablet for work")
-      expect(page).to have_content("Current Selling Price: 10000")
+      expect(page).to have_content("Current Selling Price: $100.00")
     end
 
     it 'I see a flash message stating that the information has been successfully updated' do

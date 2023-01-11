@@ -36,11 +36,11 @@ class Admin::MerchantsController < ApplicationController
       
     else
       redirect_to admin_merchant_path
+      flash[:alert] = "Error: #{error_message(merchant.errors)}"
     end
   end
   
   private
-  
   def merchant_params
     params.require(:merchant).permit(:id, :name)
   end

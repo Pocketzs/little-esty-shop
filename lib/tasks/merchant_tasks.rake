@@ -3,7 +3,6 @@ require 'csv'
 namespace :csv_load do
   desc 'loads merchant CSV into db'
   task :merchants do
-
     file = 'db/data/merchants.csv'
 
     CSV.foreach(file, headers: true) do |row|

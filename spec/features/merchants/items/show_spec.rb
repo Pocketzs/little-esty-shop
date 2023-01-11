@@ -11,11 +11,11 @@ RSpec.describe 'The Merchant Items Show page', type: :feature do
 
     expect(page).to have_content("Name: #{item1.name}")
     expect(page).to have_content("Description: #{item1.description}")
-    expect(page).to have_content("Current Selling Price: #{item1.unit_price}")
+    expect(page).to have_content("Current Selling Price: $10.00")
     
     expect(page).to_not have_content("Name: #{item2.name}")
     expect(page).to_not have_content("Description: #{item2.description}")
-    expect(page).to_not have_content("Current Selling Price: #{item2.unit_price}")
+    expect(page).to_not have_content("Current Selling Price: $12.00")
   end
 
   describe "When I visit the merchant show page of an item" do
@@ -23,7 +23,6 @@ RSpec.describe 'The Merchant Items Show page', type: :feature do
       visit merchant_item_path(merchant1.id, item1.id)
       click_link("Edit")
 
-      # expect(current_path).to eq("/merchants/#{merchant1.id}/items/#{item1.id}/edit")
       expect(current_path).to eq(edit_merchant_item_path(merchant1.id, item1.id))
     end
   end
