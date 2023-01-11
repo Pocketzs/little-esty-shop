@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only:[] do
-    resources :items, only:[:index, :show, :edit, :update], controller: "merchant_items"
-    resources :invoices, except:[:destroy], controller: "merchant_invoices"
-    resources :dashboard, only:[:index], controller: "merchants"
+    resources :items, except: [:destroy], controller: "merchant_items"
+    resources :invoices, except: [:destroy], controller: "merchant_invoices"
+    resources :dashboard, only: [:index], controller: "merchants"
   end
 
   resources :invoices, only:[:update]
