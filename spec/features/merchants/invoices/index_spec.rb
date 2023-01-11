@@ -25,8 +25,8 @@ RSpec.describe 'The Merchant Invoices Index page', type: :feature do
     it "then I see all of the invoices that include at least one of my merchant's items" do
       visit merchant_invoices_path(merchant1.id)
 
-      expect(page).to have_content("Invoice ID: #{invoice1.id}")
-      expect(page).to have_content("Invoice ID: #{invoice2.id}")
+      expect(page).to have_content("##{invoice1.id}")
+      expect(page).to have_content("##{invoice2.id}")
     end
 
     it "for each invoice I see an id and each id links to a merchants invoice show page" do

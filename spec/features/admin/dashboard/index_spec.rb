@@ -96,10 +96,10 @@ RSpec.describe "Admin Dashboard Index Page" do
           expect(page).to have_content(customer6.transactions.count)
         end
 
-        expect("#customer_id_6").to appear_before("#customer_id_5")
-        expect("#customer_id_5").to appear_before("#customer_id_4")
-        expect("#customer_id_4").to appear_before("#customer_id_3")
-        expect("#customer_id_3").to appear_before("#customer_id_2")
+        expect(customer6.first_name).to appear_before(customer5.first_name)
+        expect(customer5.first_name).to appear_before(customer4.first_name)
+        expect(customer4.first_name).to appear_before(customer3.first_name)
+        expect(customer3.first_name).to appear_before(customer2.first_name)
       end
     end
   end
