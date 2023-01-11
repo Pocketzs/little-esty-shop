@@ -6,7 +6,7 @@ RSpec.describe Merchant, type: :model do
     @item1, @item2, @item3, = create_list(:item, 3, merchant: @merchant) 
     @item4, @item5 = create_list(:item, 2, merchant: @merchant, status: "enabled") 
   end
-
+  
   describe 'relationships' do
     it { should have_many :items } 
     it { should have_many(:invoice_items).through(:items) } 
@@ -18,6 +18,12 @@ RSpec.describe Merchant, type: :model do
     it { should validate_presence_of :name } 
   end
 
+  describe 'methods' do
+    it 'top_customers' do
+      expect(merchant.top_customers).to eq([customer6, customer5, customer4, customer3, customer2])
+    end
+  end
+  
   describe 'instance methods' do
     describe '#top_five_items_ordered' do
       let!(:merchant1) { Merchant.create!(name: "Billy's Butters") }
