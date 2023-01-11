@@ -8,4 +8,12 @@ class Item < ApplicationRecord
   validates_numericality_of :unit_price, only_integer: true
 
   enum status: [:disabled, :enabled]
+  
+  
+  
+  def invoice_date
+    invoice_id = InvoiceItem.where(item_id:self.id).pluck(:invoice_id).first
+    
+    Invoice.where(id: invoice_id).first.created_at.strftime("%A, %B %d, %Y")
+  end
 end
