@@ -122,6 +122,8 @@ RSpec.describe "Admin Merchants Index" do
         expect(page).to have_content(merchant4.name)
         expect(page).to have_content(merchant5.name)
         expect(page).to have_content(merchant6.name)
+
+        expect(page).to_not have_content(merchant1.name)
         
         expect(merchant6.name).to appear_before(merchant5.name)
         expect(merchant5.name).to appear_before(merchant4.name)
@@ -142,8 +144,12 @@ RSpec.describe "Admin Merchants Index" do
     
       within("#top_merchants") do
         # And I see the total revenue generated next to each merchant name
-        
-        
+        expect(page).to have_content(merchant2.total_revenue / 100.00)
+        expect(page).to have_content(merchant3.total_revenue / 100.00)
+        expect(page).to have_content(merchant4.total_revenue / 100.00)
+        expect(page).to have_content(merchant5.total_revenue / 100.00)
+        expect(page).to have_content(merchant6.total_revenue / 100.00)
+        save_and_open_page
         # Notes on Revenue Calculation:
         # Only invoices with at least one successful transaction should count towards revenue
         # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items

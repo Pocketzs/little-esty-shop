@@ -29,7 +29,7 @@
 <h3>Top Merchants</h3>
 <ol>
   <% @top_merchants.each do |merchant| %>
-    <li><p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $$$ in sales</p>
+    <li><p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $<%= merchant.total_revenue / 100.00 %> in sales</p>
         <p>Top day for <%= merchant.name %> was DATE</p>
     </li>
   <% end %>
