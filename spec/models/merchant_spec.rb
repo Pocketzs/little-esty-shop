@@ -93,17 +93,11 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
-  describe 'methods' do
-    it 'top_customers' do
-      expect(merchant.top_customers).to eq([customer6, customer5, customer4, customer3, customer2])
-    end
-  end
-  
   describe 'instance methods' do
     describe '#top_five_items_ordered' do
       let!(:merchant1) { Merchant.create!(name: "Billy's Butters") }
       let!(:merchant2) { Merchant.create!(name: "Sandy's Sandwiches") }
-
+      
       let!(:item1) { Item.create!(name: "Tissues", description: "Wipes Nose", unit_price: 1000, merchant: merchant1) }
       let!(:item2) { Item.create!(name: "Apples", description: "Delicious", unit_price: 1200, merchant: merchant1) }
       let!(:item3) { Item.create!(name: "Pizza", description: "Cheezy Delicious", unit_price: 1749, merchant: merchant1, status: "enabled") }
@@ -112,16 +106,16 @@ RSpec.describe Merchant, type: :model do
       let!(:item7) { Item.create!(name: "Pickles", description: "Dill", unit_price: 1200, merchant: merchant1) }
       let!(:item8) { Item.create!(name: "Headphones", description: "Plays music", unit_price: 1749, merchant: merchant1, status: "enabled") }
       let!(:item9) { Item.create!(name: "Water Bottle", description: "Holds water", unit_price: 1000, merchant: merchant1, status: "enabled") }
-
+      
       let!(:item5) { Item.create!(name: "Computer Mouse", description: "Moves Cursor", unit_price: 5000, merchant: merchant2) }
       let!(:item10) { Item.create!(name: "Laptop", description: "Writes code", unit_price: 5000, merchant: merchant2) }
-
+      
       let!(:customer1) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
       let!(:customer2) {Customer.create!(first_name: "Chad", last_name: "Chaddert")}
       let!(:customer3) {Customer.create!(first_name: "Pete", last_name: "Peterton")}
       let!(:customer4) {Customer.create!(first_name: "Sarah", last_name: "Sarington")}
       let!(:customer5) {Customer.create!(first_name: "Logan", last_name: "Lofferson")}
-
+      
       let!(:invoice1) {customer1.invoices.create!(status: 1)}
       let!(:invoice2) {customer2.invoices.create!(status: 1)}
       let!(:invoice3) {customer3.invoices.create!(status: 1)}
@@ -140,7 +134,7 @@ RSpec.describe Merchant, type: :model do
       let!(:invoice_item10) { InvoiceItem.create!(quantity: 0, unit_price: 1200, item: item2, invoice: invoice2, status: 1) }
       let!(:invoice_item11) { InvoiceItem.create!(quantity: 0, unit_price: 1749, item: item3, invoice: invoice3, status: 2) }
       let!(:invoice_item12) { InvoiceItem.create!(quantity: 0, unit_price: 100005, item: item4, invoice: invoice3, status: 1) }
-
+      
       let!(:transaction1) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice1 ) }
       let!(:transaction2) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice2 ) }
       let!(:transaction3) { Transaction.create!(result: "success", credit_card_number: 4832483429348594, credit_card_expiration_date: "", invoice: invoice3 ) }
@@ -149,8 +143,11 @@ RSpec.describe Merchant, type: :model do
       it 'returns an array of the top five merchant items by revenue' do
         expect(merchant1.top_five_items_ordered).to eq([item1, item2, item3, item4, item6])
       end
+      it 'top_customers' do
+        expect(merchant1.top_customers).to eq([customer3, customer2, customer1, customer4, customer5])
+      end
     end
-
+    
     describe "#items_ordered_by_most_recently_updated_at" do
       it 'returns an array of a merchants items ordered by their creation time' do
         merchant1 = Merchant.create!(name: "Harvey")
@@ -158,7 +155,7 @@ RSpec.describe Merchant, type: :model do
         item3 = merchant1.items.create!(name: "Saw", description:"Cut things", unit_price: 2000)
         item1 = merchant1.items.create!(name: "Hammer", description:"Hit things", unit_price: 1200)
         item2 = merchant1.items.create!(name: "Nail", description:"Secure things", unit_price: 22)
-
+        
         merchant2.items << item1
         merchant2.items << item2
         merchant2.items << item3
