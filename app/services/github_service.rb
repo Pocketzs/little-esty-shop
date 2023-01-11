@@ -19,8 +19,8 @@ class EndPoints
     "https://api.github.com/repos/Pocketzs/little-esty-shop/commits?author=#{person}" #{/sha}
   end
 
-  def self.merges
-    "https://api.github.com/repos/Pocketzs/little-esty-shop/merges"
+  def self.pulls(state)
+    "https://api.github.com/repos/Pocketzs/little-esty-shop/pulls?state=#{state}"
   end
 end
 
@@ -47,9 +47,8 @@ end
 class Contributors
   attr_reader :contributors
   def initialize(data)
-    @contributors = []
-    data.each do |contributor|
-      @contributors << contributor[:login] 
+    @contributors = data.map do |contributor|
+      contributor = contributor[:login] 
     end
   end
 end
@@ -64,29 +63,30 @@ end
 class RepositoryCommits
   attr_reader :commits
   def initialize(data)
-    @commits = data.map do |thing|
-      thing = thing[:commit][:message]
-    end
+    @commits = data.count
   end
 end
 
-
-# Fix this one to be similar to above (map or each)
 class RepositoryPullRequests
-  attr_reader :pull_requests
+  attr_reader :count
   def initialize(data)
-    @pull_requests = data[:pull_requests]
+    @count = data.count
   end
 end
 
 # Repository Name
-# service = GithubService.new(EndPoints.repo)
-# repo_info = RepositoryName.new(service.data)
+repo = GithubService.new(EndPoints.repo)
+repo_name = RepositoryName.new(repo.data)
 
-# Contributor Names - Requires Authentication
-# service = GithubService.new(EndPoints.contributors)
-# info = Contributors.new(service.data)
+# Contributor Names
+contributors = GithubService.new(EndPoints.contributors)
+contributor_names = Contributors.new(contributors.data)
 
 # Commit Descriptions In An Array For Specific User
-# service = GithubService.new(EndPoints.commits("jlweave"))
-# info = RepositoryCommits.new(service.data)
+commits = GithubService.new(EndPoints.commits("jlweave"))
+commits_count = RepositoryCommits.new(commits.data)
+
+# Pull Request Count
+pulls = GithubService.new(EndPoints.pulls("closed"))
+pr_count = RepositoryPullRequests.new(pulls.data)
+binding.pry
