@@ -17,7 +17,7 @@
   <% @merchant.ready_to_ship.each do |invoice_item| %>
     <div id="rts-item-<%="#{invoice_item.id}"%>">
     Name: <%= invoice_item.name %>, Invoice ID: (<%= link_to invoice_item.invoice_id, merchant_invoice_path(@merchant, invoice_item.invoice_id) %>)
-    Created: <%=  %>
+    Created: <%= invoice_item.invoice_date %>
     <br>
     </div>
   <% end %>
