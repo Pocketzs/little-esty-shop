@@ -173,9 +173,9 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
       # # In the section for "Items Ready to Ship"
       within("#ready-to-ship") do
         # # And I see that the list is ordered from oldest to newest
-        # expect(invoice20.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice21.created_at.strftime("%A, %B %d, %Y"))
-        # 
-        # expect(invoice21.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice22.created_at.strftime("%A, %B %d, %Y"))
+        expect(invoice20.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice21.created_at.strftime("%A, %B %d, %Y"))
+        
+        expect(invoice21.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice22.created_at.strftime("%A, %B %d, %Y"))
         
         within("#rts-item-#{item20.id}") do
         # # Next to each Item name I see the date that the invoice was created formatted like "Monday, July 18, 2019" .strftime("%A, %B %d, %Y"
