@@ -162,23 +162,13 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
     end
     
     #us5
-    # As a merchant
-    # When I visit my merchant dashboard
-    # In the section for "Items Ready to Ship",
-    # Next to each Item name I see the date that the invoice was created
-    # And I see the date formatted like "Monday, July 18, 2019"
-    # And I see that the list is ordered from oldest to newest
     it "in the section for 'Items Ready to Ship'" do
       visit merchant_dashboard_index_path(merchant20.id)
-      # # In the section for "Items Ready to Ship"
       within("#ready-to-ship") do
-        # # And I see that the list is ordered from oldest to newest
         expect(invoice20.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice21.created_at.strftime("%A, %B %d, %Y"))
-        
         expect(invoice21.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice22.created_at.strftime("%A, %B %d, %Y"))
         
         within("#rts-item-#{item20.id}") do
-        # # Next to each Item name I see the date that the invoice was created formatted like "Monday, July 18, 2019" .strftime("%A, %B %d, %Y"
           expect(page).to have_content(item20.name)
           expect(page).to have_content("Wednesday, July 13, 2022")
         end
