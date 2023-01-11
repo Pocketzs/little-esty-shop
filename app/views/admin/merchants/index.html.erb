@@ -24,3 +24,14 @@
 </div>
 
 <%= link_to "New Merchant", "/admin/merchants/new" %>
+
+<div id="top_merchants">
+<h3>Top Merchants</h3>
+<ol>
+  <% @top_merchants.each do |merchant| %>
+    <li><p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $$$ in sales</p>
+        <p>Top day for <%= merchant.name %> was DATE</p>
+    </li>
+  <% end %>
+</ol>
+</div>
