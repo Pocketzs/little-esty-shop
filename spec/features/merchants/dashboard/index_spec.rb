@@ -54,7 +54,30 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
   let!(:invoice_item10) { create(:invoice_item, invoice_id: invoice10.id, item_id: item5.id, quantity: 6, unit_price: 1, status: 1) }
   let!(:invoice_item11) { create(:invoice_item, invoice_id: invoice11.id, item_id: item6.id, quantity: 4, unit_price: 1, status: 1) }
   let!(:invoice_item12) { create(:invoice_item, invoice_id: invoice12.id, item_id: item7.id, quantity: 3, unit_price: 1, status: 2) }
+  
+  
+  let!(:merchant20) { create(:merchant) }
+  
+  let!(:customer20) { create(:customer) }
 
+  let!(:item20) { create(:item, merchant_id: merchant20.id) }
+  let!(:item21) { create(:item, merchant_id: merchant20.id) }
+  let!(:item22) { create(:item, merchant_id: merchant20.id) }
+  let!(:item23) { create(:item, merchant_id: merchant20.id) }
+
+  let!(:invoice20) { create(:invoice, customer_id: customer20.id, created_at: DateTime.new(2022, 07, 13, 20, 10, 0), status: 0) }
+  let!(:invoice21) { create(:invoice, customer_id: customer20.id, created_at: DateTime.new(2022, 12, 06, 20, 10, 0), status: 0) }
+  let!(:invoice22) { create(:invoice, customer_id: customer20.id, created_at: DateTime.new(2023, 01, 21, 20, 10, 0), status: 0) }
+  
+  let!(:transaction20) { 1.times do create(:transaction, invoice_id: invoice20.id, result: 1) end }
+  let!(:transaction21) { 1.times do create(:transaction, invoice_id: invoice21.id, result: 1) end }
+    
+  let!(:invoice_item20) { create(:invoice_item, invoice_id: invoice20.id, item_id: item20.id, quantity: 1, unit_price: 1, status: 1) }
+  let!(:invoice_item21) { create(:invoice_item, invoice_id: invoice20.id, item_id: item21.id, quantity: 1, unit_price: 1, status: 1) }
+  let!(:invoice_item22) { create(:invoice_item, invoice_id: invoice21.id, item_id: item22.id, quantity: 1, unit_price: 1, status: 1) }
+  let!(:invoice_item23) { create(:invoice_item, invoice_id: invoice22.id, item_id: item23.id, quantity: 1, unit_price: 1, status: 1) }
+  
+  
   before :each do
     visit merchant_dashboard_index_path(merchant.id)
   end
@@ -140,13 +163,22 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
     
     #us5
     it "in the section for 'Items Ready to Ship'" do
+      visit merchant_dashboard_index_path(merchant20.id)
+      save_and_open_page
       # # In the section for "Items Ready to Ship"
-      within "#ready-to-ship" do
-        # # Next to each Item name I see the date that the invoice was created
-        save_and_open_page
-        # expect()
-        # # And I see the date formatted like "Monday, July 18, 2019"
+      within("#ready-to-ship") do
+        within("#rts-item-#{item20.id}") do
+        # # Next to each Item name I see the date that the invoice was created formatted like "Monday, July 18, 2019" .strftime("%A, %B %d, %Y"
+          expect(page).to have_content(item20.name)
+          # expect(page).to have_content("Wednesday, July 13th, 2022")
+          # save_and_open_page
+          # binding.pry
         # # And I see that the list is ordered from oldest to newest
+          # expect(invoice).to have_content('string')
+        end
+        within("#rts-item-#{item21.id}") do
+          expect(page).to have_content(item21.name)
+        end
       end
     end
   end
