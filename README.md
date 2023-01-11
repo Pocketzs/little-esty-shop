@@ -28,7 +28,32 @@ Merchant/
 -- Merchant Items
   - The Merchant Items feature perform Active Record and CRUD behaviors on Item instances only related to the particular Merchant.
   - Specific CRUD features include Enabling / Disabling (status change), Create an Item, Update an Item (show page)
-  - Specific Active Record features include 
+  - Specific Active Record features include finding the top item (sales), and the top day for when the item was sold.
+
+-- Merchant Invoices
+  - The Merchant Invoices feature perform some CRUD behaviors on Invoices only related to the particular Merchant.
+  - Updating the Invoice status (on the `merchants/:id/invoices/show` page) is done through a model form.
+
+-- Admin Dashboard
+  - The Admin Dashboard is similar to the Merchant Dashboard, in that is has links to navigate to the other Admin features. It also displays similar Active Record analysis, but it is applied to the entire db's records. (As opposed to objects belonging to a single Merchant.)
+
+-- Admin Merchants
+  - The Admin Merchants feature perform Active Record and CRUD behaviors on any of the database's Merchants =.
+  - Specific CRUD features include Enabling / Disabling (status change), Create a Merchant, Update a Merchant (show page)
+
+-- Admin Invoices
+  - The Admin Invoices feature perform some CRUD behaviors on Invoices only related to all Merchant records in the db.
+  - Updating the Invoice status (on the `admin/invoices/show` page) is done through a model form.
+---
+
+### Other features
+-- Rake tasks were set up to create Model objects based off supplied .csv files.
+  - Once a task was created for each .csv file, they were lumped into a single `rake csv_load:all` command.
+
+-- APIs were explored to display project information from Git Hub
+
+-- A partial has been used _____
+
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships
 - Utilize advanced routing techniques including namespacing to organize and group like functionality together.
