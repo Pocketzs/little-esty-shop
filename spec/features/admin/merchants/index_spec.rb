@@ -76,7 +76,7 @@ RSpec.describe "Admin Merchants Index" do
     end
   end
   
-  describe "User Story 30" do
+  describe "User Story 30 and 31" do
     let!(:merchant4) {create(:merchant)}
     let!(:merchant5) {create(:merchant)}
     let!(:merchant6) {create(:merchant)}
@@ -141,7 +141,7 @@ RSpec.describe "Admin Merchants Index" do
     
     it "top 5 merchants display total revenue" do
       visit admin_merchants_path
-    
+      
       within("#top_merchants") do
         # And I see the total revenue generated next to each merchant name
         expect(page).to have_content(merchant2.total_revenue / 100.00)
@@ -155,10 +155,16 @@ RSpec.describe "Admin Merchants Index" do
         # Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
       end
     end
-  end
-
-  describe "User Story 31" do
-    it "best day for top merchant"
+  
+    it "best day for top merchant" do
+      visit admin_merchants_path
+      within("#top_merchants") do
+        expect(page).to have_content("Top day for #{merchant6.name} was #{merchant6.best_day.strftime("%A, %B %m, %Y")}")
+        expect(page).to have_content("Top day for #{merchant5.name} was #{merchant5.best_day.strftime("%A, %B %m, %Y")}")
+        expect(page).to have_content("Top day for #{merchant4.name} was #{merchant4.best_day.strftime("%A, %B %m, %Y")}")
+        expect(page).to have_content("Top day for #{merchant3.name} was #{merchant3.best_day.strftime("%A, %B %m, %Y")}")
+      end
+    end
 
   end
 end

@@ -10,7 +10,7 @@ class Merchant < ApplicationRecord
 
   def self.top_five_by_revenue
     self.joins(:transactions).where(transactions:{result: 1})
-        .select("merchants.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+        .select(Arel.sql("merchants.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue"))
         .group(:id).order("total_revenue desc").limit(5)
   end
 
@@ -21,8 +21,8 @@ class Merchant < ApplicationRecord
 
   def best_day
     self.transactions.where(transactions:{result:1})
-        .select("invoices.id, invoice_items.id, invoices.created_at, 
-          invoice_items.quantity, invoice_items.unit_price")
-        .order("invoice_items.quantity * invoice_items.unit_price desc").pluck("invoices.created_at").first
+        .select(Arel.sql("invoices.id, invoice_items.id, invoices.created_at, 
+          invoice_items.quantity, invoice_items.unit_price"))
+        .order(Arel.sql("invoice_items.quantity * invoice_items.unit_price desc")).pluck("invoices.created_at").first
   end
 end
