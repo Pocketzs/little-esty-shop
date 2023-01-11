@@ -56,7 +56,7 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
   let!(:invoice_item12) { create(:invoice_item, invoice_id: invoice12.id, item_id: item7.id, quantity: 3, unit_price: 1, status: 2) }
 
   before :each do
-    visit "/merchants/#{merchant.id}/dashboard" 
+    visit merchant_dashboard_index_path(merchant.id)
   end
 
   describe 'As a merchant, when I visit my merchant dashboard' do
