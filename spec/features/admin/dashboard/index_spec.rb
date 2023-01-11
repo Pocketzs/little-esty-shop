@@ -2,13 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "Admin Dashboard Index Page" do
   let!(:customer) {Customer.create!(first_name: "Bob", last_name: "Bobbert")}
+
   let!(:invoice1) {customer.invoices.create!(created_at: DateTime.new(2018, 05, 11, 20, 10, 0), status: 0)}
   let!(:invoice2) {customer.invoices.create!(created_at: DateTime.new(2018, 06, 12, 20, 10, 0), status: 1)}
   let!(:invoice3) {customer.invoices.create!(status: 2)}
   let!(:invoice4) {customer.invoices.create!(created_at: DateTime.new(2017, 07, 13, 20, 10, 0), status: 0)}
+
   let!(:merchant1) {Merchant.create!(name: "Hockey Stop and Shop")}
+
   let!(:item1) {merchant1.items.create!(name: "Socks", description: "They're good socks.", unit_price: 1200)}
   let!(:item2) {merchant1.items.create!(name: "Tape", description: "For taping.", unit_price: 600)}
+
   let!(:invoice_item1) {InvoiceItem.create!(created_at: DateTime.new(2018, 05, 11, 20, 10, 0), invoice_id: invoice1.id, item_id: item1.id, quantity: 2, unit_price: 1200, status: 0)}
   let!(:invoice_item2) {InvoiceItem.create!(created_at: DateTime.new(2018, 06, 12, 20, 10, 0), invoice_id: invoice2.id, item_id: item2.id, quantity: 1, unit_price: 600, status: 0)}
   let!(:invoice_item3) {InvoiceItem.create!(invoice_id: invoice3.id, item_id: item2.id, quantity: 1, unit_price: 0, status: 2)}
