@@ -149,7 +149,6 @@ RSpec.describe "Admin Merchants Index" do
         expect(page).to have_content(merchant4.total_revenue / 100.00)
         expect(page).to have_content(merchant5.total_revenue / 100.00)
         expect(page).to have_content(merchant6.total_revenue / 100.00)
-        save_and_open_page
         # Notes on Revenue Calculation:
         # Only invoices with at least one successful transaction should count towards revenue
         # Revenue for an invoice should be calculated as the sum of the revenue of all invoice items

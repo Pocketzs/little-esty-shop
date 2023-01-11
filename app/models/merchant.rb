@@ -18,4 +18,11 @@ class Merchant < ApplicationRecord
     total = self.transactions.group(:id).where(transactions:{result: 1}).sum("invoice_items.quantity * invoice_items.unit_price")
     total.values.first
   end
+
+  def best_day
+    self.transactions.where(transactions:{result:1})
+        .select("invoices.id, invoice_items.id, invoices.created_at, 
+          invoice_items.quantity, invoice_items.unit_price")
+        .order("invoice_items.quantity * invoice_items.unit_price desc").pluck("invoices.created_at").first
+  end
 end

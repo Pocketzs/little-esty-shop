@@ -30,7 +30,7 @@
 <ol>
   <% @top_merchants.each do |merchant| %>
     <li><p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $<%= merchant.total_revenue / 100.00 %> in sales</p>
-        <p>Top day for <%= merchant.name %> was DATE</p>
+        <p>Top day for <%= merchant.name %> was <%= merchant.best_day.strftime("%A, %B %m, %Y") %></p>
     </li>
   <% end %>
 </ol>

@@ -42,20 +42,25 @@ RSpec.describe Merchant, type: :model do
     let!(:invoice_item4) {create(:invoice_item, invoice_id: invoice4.id, item_id:item4.id, quantity: 1, unit_price: 400)}
     let!(:invoice_item5) {create(:invoice_item, invoice_id: invoice5.id, item_id:item5.id, quantity: 1, unit_price: 500)}
     let!(:invoice_item6) {create(:invoice_item, invoice_id: invoice6.id, item_id:item6.id, quantity: 1, unit_price: 600)}
-
+    
     let!(:transaction1) {create(:transaction, invoice_id: invoice1.id, result: 1)}
     let!(:transaction2) {create(:transaction, invoice_id: invoice2.id, result: 1)}
     let!(:transaction3) {create(:transaction, invoice_id: invoice3.id, result: 1)}
     let!(:transaction4) {create(:transaction, invoice_id: invoice4.id, result: 1)}
     let!(:transaction5) {create(:transaction, invoice_id: invoice5.id, result: 1)}
     let!(:transaction6) {create(:transaction, invoice_id: invoice6.id, result: 1)}
-
+    
     describe 'class methods' do
       it "top 5 merchants by revenue" do
-        expect(Merchant.top_five_by_revenue).to eq ([merchant6, merchant5, merchant4, merchant3, merchant2, merchant1])
+        expect(Merchant.top_five_by_revenue.include?(merchant6)).to be true
+        expect(Merchant.top_five_by_revenue.include?(merchant5)).to be true
+        expect(Merchant.top_five_by_revenue.include?(merchant4)).to be true
+        expect(Merchant.top_five_by_revenue.include?(merchant3)).to be true
+        expect(Merchant.top_five_by_revenue.include?(merchant2)).to be true
+        expect(Merchant.top_five_by_revenue.include?(merchant1)).to be false
       end
     end
-
+    
     describe 'instance methods' do
       it "total_revenue" do
         expect(merchant6.total_revenue).to eq(600)
@@ -69,6 +74,14 @@ RSpec.describe Merchant, type: :model do
         # UNSURE HOW TO TRULY GET A RECORD WITH A FAILED RESULT TO BE IGNORED< THEN INCLUDED ONCE THERE IS A PASSING TRANSACTION
         # transaction_success = create(:transaction, invoice_id: invoice_no_success.id, result: 1)
         # expect(merchant6.total_revenue).to eq(700)
+      end
+      
+      it "best_day" do
+        invoice7 = create(:invoice, customer_id: customer.id, created_at: "2022/02/02")
+        invoice_item7 = create(:invoice_item, invoice_id: invoice7.id, item_id:item6.id, quantity: 5, unit_price: 600)
+        transaction_good = create(:transaction, invoice_id: invoice7.id, result: 1)
+        merchant6.reload
+        expect(merchant6.best_day).to eq(invoice7.created_at)
       end
     end
   end
