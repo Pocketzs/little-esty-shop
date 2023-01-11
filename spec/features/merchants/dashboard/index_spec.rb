@@ -164,7 +164,7 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
     #us5
     it "in the section for 'Items Ready to Ship'" do
       visit merchant_dashboard_index_path(merchant20.id)
-      save_and_open_page
+      # save_and_open_page
       # # In the section for "Items Ready to Ship"
       within("#ready-to-ship") do
         within("#rts-item-#{item20.id}") do

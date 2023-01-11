@@ -13,12 +13,12 @@
 </div>
 
 <div id="ready-to-ship">
-  <h2>Ready To Ship Items</h2>
-    <% @merchant.ready_to_ship.each do |invoice_item| %>
-      <div id="rts-item-<%="#{invoice_item.id}"%>">
-        Name: <%= invoice_item.name %>, Invoice ID: (<%= link_to invoice_item.invoice_id, merchant_invoice_path(@merchant, invoice_item.invoice_id) %>)
-        Created: <%= invoice_item.created_at.strftime("%A, %B %d, %Y")  %>
-      <br>
-      </div>
-    <% end %>
+<h2>Ready To Ship Items</h2>
+  <% @merchant.ready_to_ship.each do |invoice_item| %>
+    <div id="rts-item-<%="#{invoice_item.id}"%>">
+    Name: <%= invoice_item.name %>, Invoice ID: (<%= link_to invoice_item.invoice_id, merchant_invoice_path(@merchant, invoice_item.invoice_id) %>)
+    Created: <%=  %>
+    <br>
+    </div>
+  <% end %>
 </div>
