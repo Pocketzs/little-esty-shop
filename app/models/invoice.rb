@@ -10,9 +10,9 @@ class Invoice < ApplicationRecord
     self.invoice_items.sum("quantity * unit_price")
   end
 
-  def self.invoice_items_pending
+  def self.invoice_items_not_shipped
     self.joins(:invoice_items)
-        .where("invoice_items.status = 0")
+        .where("invoice_items.status < 2")
         .group(:id)
         .order(:created_at)
   end
