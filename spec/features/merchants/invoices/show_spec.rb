@@ -67,9 +67,8 @@ RSpec.describe 'The Merchant Invoices Show page', type: :feature do
       within "#item_#{item1.id}" do
         select("packaged", from: "status")
 
-      expect(current_path).to eq(merchant_invoice_path(merchant1, invoice1))
+        expect(current_path).to eq(merchant_invoice_path(merchant1, invoice1))
       end
-
     end
   end
 end
