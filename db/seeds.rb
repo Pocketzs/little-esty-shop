@@ -4,6 +4,7 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-merchant1 = Merchant.create!(name: "Billy's Butters")
-Item.create!(name: "Tissues", description: "Wipes Nose", unit_price: 1000, merchant: merchant1)
+
+
+# merchant1 = Merchant.create!(name: "Billy's Butters")
+# Item.create!(name: "Tissues", description: "Wipes Nose", unit_price: 1000, merchant: merchant1)
