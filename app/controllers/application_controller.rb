@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :github 
 
   def github
+    # Repo Name
     repo = GithubService.new(EndPoints.repo)
     @repo_name = RepositoryName.new(repo.data).name
     
@@ -9,7 +10,7 @@ class ApplicationController < ActionController::Base
     contributors = GithubService.new(EndPoints.contributors)
     @contributor_names = Contributors.new(contributors.data).contributors
     
-    # Commit Descriptions In An Array For Specific User
+    # Commit Count 
     commits = GithubService.new(EndPoints.commits) 
     @commits_count = RepositoryCommits.new(commits.data).commits
     
