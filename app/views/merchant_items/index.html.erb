@@ -4,36 +4,41 @@
 <center><h3>My Items</h3></center>
 <p><%= link_to "Create New Item", new_merchant_item_path(@merchant.id) %></p>
 
-
-<div id="enabled-items">
-<h3>Enabled Items</h3>
-  <% @merchant_items.enabled.each do |item| %>
-    <div id=<%="item_#{item.id}"%>>
-      <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
-      <%= "Status: #{item.status}" %>
-      <%= button_to "Disable", merchant_item_path(@merchant.id, item.id), params: {status: :disabled},method: :patch %>
+<div id='main'>
+  <div id='left'>
+    <div id="enabled-items">
+    <h3>Enabled Items</h3>
+      <% @merchant_items.enabled.each do |item| %>
+        <div id=<%="item_#{item.id}"%>>
+          <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
+          <%= "Status: #{item.status}" %>
+          <%= button_to "Disable", merchant_item_path(@merchant.id, item.id), params: {status: :disabled},method: :patch %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
 
-<div id="disabled-items">
-<h3>Disabled Items</h3>
-  <% @merchant_items.disabled.each do |item| %>
-    <div id=<%="item_#{item.id}"%>>
-      <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
-      <%= "Status: #{item.status}" %>
-      <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
+    <div id="disabled-items">
+    <h3>Disabled Items</h3>
+      <% @merchant_items.disabled.each do |item| %>
+        <div id=<%="item_#{item.id}"%>>
+          <%= link_to item.name, merchant_item_path(@merchant.id, item.id)%>
+          <%= "Status: #{item.status}" %>
+          <%= button_to "Enable", merchant_item_path(@merchant.id, item.id), params: {status: :enabled},method: :patch %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
 
-<div id="top-five-items">
-  <h3>Top Five Items By Revenue</h3>
-  <% @merchant.top_five_items_ordered.each_with_index do |item, index|  %>
-    <div id="top-item-<%="#{item.id}"%>">
-      <%= index+1 %>. <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br><p>
-      Top Selling Day For <%= item.name %> was <%= item.top_selling_day.strftime("%m/%d/%Y") %>!
-      <p>
+  <div id='right'>
+    <div id="top-five-items">
+      <h3>Top Five Items By Revenue</h3>
+      <% @merchant.top_five_items_ordered.each_with_index do |item, index|  %>
+        <div id="top-item-<%="#{item.id}"%>">
+          <%= index+1 %>. <%=link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.revenue/100.0) %> in sales <br><p>
+          Top Selling Day For <%= item.name %> was <%= item.top_selling_day.strftime("%m/%d/%Y") %>!
+          <p>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
