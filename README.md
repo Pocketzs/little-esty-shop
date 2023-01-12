@@ -50,9 +50,9 @@ Merchant/
 -- Rake tasks were set up to create Model objects based off supplied .csv files.
   - Once a task was created for each .csv file, they were lumped into a single `rake csv_load:all` command.
 
--- APIs were explored to display project information from Git Hub
+-- APIs were explored to display project information from Git Hub.
 
--- A partial has been used _____
+-- A partial has been used for `admin/invoices` and `merchants/invoices` index lists.
 
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships

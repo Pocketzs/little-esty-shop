@@ -1,1 +1,0 @@
-# we should not have any seeds as we are using our `rake csv_load:all` task

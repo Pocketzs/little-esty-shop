@@ -1,3 +1,5 @@
 class MerchantsController < ApplicationController
-  # do we need this? delete?
+  def index
+    @merchant = Merchant.find(params[:merchant_id])
+  end
 end
