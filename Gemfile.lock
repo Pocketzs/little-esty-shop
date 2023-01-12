@@ -84,6 +84,9 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     hirb (0.7.3)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -110,6 +113,7 @@ GEM
     mini_portile2 (2.8.1)
     minitest (5.17.0)
     msgpack (1.6.0)
+    multi_xml (0.6.0)
     net-imap (0.3.4)
       date
       net-protocol
@@ -127,7 +131,7 @@ GEM
       capybara (>= 1.1)
       rspec (>= 2.14)
     pg (1.4.5)
-    pry (0.14.1)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (5.0.1)
@@ -171,10 +175,10 @@ GEM
       rspec-mocks (~> 3.12.0)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.1)
+    rspec-expectations (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.1)
+    rspec-mocks (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-rails (4.0.2)
@@ -249,6 +253,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   hirb
+  httparty
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)

@@ -1,6 +1,5 @@
-require 'httparty'
 require 'json'
-require 'pry'
+require 'httparty'
 
 class EndPoints
   def self.repo
@@ -32,9 +31,6 @@ class GithubService
   end
   
   def get_url(url)
-    # open unencrypted credentials file and call it github: tolken (secret)
-    # to open the credentials file we want to do rails credentials:edit, then add the keys
-    # response = HTTParty.get(url, headers: { "User-Agent" => "Pocketzs", "Authorization" => "Token #{Rails.application.credentials.config[:github]}")
     response = HTTParty.get(url)
     parsed_info(response)
   end
@@ -50,6 +46,7 @@ class Contributors
     @contributors = data.map do |contributor|
       contributor = contributor[:login] 
     end
+  @contributors -= ["BrianZanti","timomitchel","scottalexandra","cjsim89","jamisonordway", "mikedao"]
   end
 end
 
@@ -76,17 +73,16 @@ end
 
 # Repository Name
 repo = GithubService.new(EndPoints.repo)
-repo_name = RepositoryName.new(repo.data)
+@repo_name = RepositoryName.new(repo.data)
 
 # Contributor Names
 contributors = GithubService.new(EndPoints.contributors)
-contributor_names = Contributors.new(contributors.data)
+@contributor_names = Contributors.new(contributors.data)
 
 # Commit Descriptions In An Array For Specific User
 commits = GithubService.new(EndPoints.commits("jlweave"))
-commits_count = RepositoryCommits.new(commits.data)
+@commits_count = RepositoryCommits.new(commits.data)
 
 # Pull Request Count
 pulls = GithubService.new(EndPoints.pulls("closed"))
-pr_count = RepositoryPullRequests.new(pulls.data)
-binding.pry
+@pr_count = RepositoryPullRequests.new(pulls.data).count
