@@ -1,10 +1,23 @@
 class Admin::MerchantsController < ApplicationController
   def index
     @merchants = Merchant.all
+    @top_merchants = Merchant.top_five_by_revenue
   end
 
   def show
     @merchant = Merchant.find(params[:id])
+  end
+  
+  def new
+    @merchant = Merchant.new
+  end
+  
+  def create
+    merchant = Merchant.new(merchant_params)
+    
+    if merchant.save
+      redirect_to "/admin/merchants"
+    end
   end
   
   def edit
@@ -13,9 +26,14 @@ class Admin::MerchantsController < ApplicationController
   
   def update
     merchant = Merchant.find(params[:id])
-    if merchant.update!(merchant_params)
+    if params[:status]
+      merchant.update(status: params[:status])
+      redirect_to admin_merchants_path
+      
+    elsif merchant.update!(merchant_params)
       redirect_to admin_merchant_path
       flash[:notice] = "#{merchant.name} Has Been Updated!"
+      
     else
       redirect_to admin_merchant_path
       flash[:alert] = "Error: #{error_message(merchant.errors)}"

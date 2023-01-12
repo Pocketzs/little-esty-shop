@@ -17,7 +17,7 @@
   <h2>Top Customers:</h2>
   <ul>
     <% @top_customers.each do |customer| %>
-      <li id="customer_id<%= customer.id %>">Name: <%= customer.first_name %> <%= customer.last_name %>, successful transactions: <%= customer.count_successful_transactions %></li>
+      <li id="customer_id_<%= customer.id %>">Name: <%= customer.first_name %> <%= customer.last_name %>, successful transactions: <%= customer.count_successful_transactions %></li>
     <% end %>
   </ul>
 </div>

@@ -20,7 +20,7 @@ RSpec.describe "Admin Merchants Update" do
       visit "/admin/merchants/#{merchant1.id}/edit"
 
       # # And I see a form filled in with the existing merchant attribute information
-      # expect(page).to have_field()#that's filled in with the existing data)
+      expect(page).to have_field('Name', with: "#{merchant1.name}")
       
       expect(page).to have_button("Update Merchant")
       fill_in 'Name', with: 'Kiwi Style Tile'
@@ -36,6 +36,3 @@ RSpec.describe "Admin Merchants Update" do
     end
   end
 end
-
-
-
