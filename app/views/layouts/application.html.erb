@@ -16,12 +16,13 @@
     <%= yield %>
   <hr>
   <div id="github-stats">
-    Repository Name: <%= @repo_name %><br>
-    Contributor Names:<br> <% @contributor_names.each do |name| %>
-      <%= name %>
-    <% end %><br>
-    Commits Count: <%= @commits_count %><BR>
-    PR Count: <%= @pr_count %><br>
+    Repository Name: <%= @repo.name %><br>
+    Contributors:<br> <% @users.each do |user| %>
+      <div id=<%= "user-#{user.username}" %>>
+      Username: <%= user.username %> | Total Commits: <%= user.commit_total %> <br>
+      </div>
+    <% end %>
+    Merged Pull Requests: <%= @merged_pulls.count %><br>
   </div>
   </body>
 </html>
