@@ -2,20 +2,11 @@ class ApplicationController < ActionController::Base
   before_action :github 
 
   def github
+    # Usernames and User Commit Totals
+    @users = Rails.cache.fetch('users', expires_in: 45.minutes) { GithubFacade.users }
     # Repo Name
-    repo = GithubService.new(EndPoints.repo)
-    @repo_name = RepositoryName.new(repo.data).name
-    
-    # Contributor Names
-    contributors = GithubService.new(EndPoints.contributors)
-    @contributor_names = Contributors.new(contributors.data).contributors
-    
-    # Commit Count 
-    commits = GithubService.new(EndPoints.commits) 
-    @commits_count = RepositoryCommits.new(commits.data).commits
-    
+    @repo = Rails.cache.fetch('repo', expires_in: 45.minutes) { GithubFacade.repo }
     # Pull Request Count
-    pulls = GithubService.new(EndPoints.pulls("closed"))
-    @pr_count = RepositoryPullRequests.new(pulls.data).count
+    @merged_pulls = Rails.cache.fetch('merged_pulls', expires_in: 45.minutes) { GithubFacade.merged_pulls }
   end
 end
