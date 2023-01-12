@@ -92,6 +92,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    json (2.3.0)
     launchy (2.5.2)
       addressable (~> 2.8)
     listen (3.1.5)
@@ -255,6 +256,7 @@ DEPENDENCIES
   hirb
   httparty
   jbuilder (~> 2.5)
+  json
   launchy
   listen (>= 3.0.5, < 3.2)
   orderly
