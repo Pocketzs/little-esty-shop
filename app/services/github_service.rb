@@ -1,5 +1,6 @@
 require 'json'
 require 'httparty'
+require 'pry'
 
 class EndPoints
   def self.repo
@@ -15,7 +16,7 @@ class EndPoints
   end
 
   def self.commits(person)
-    "https://api.github.com/repos/Pocketzs/little-esty-shop/commits?author=#{person}" #{/sha}
+    "https://api.github.com/repos/Pocketzs/little-esty-shop/commits/#?author=#{person}" #{/sha}
   end
 
   def self.pulls(state)
@@ -73,15 +74,15 @@ end
 
 # Repository Name
 repo = GithubService.new(EndPoints.repo)
-@repo_name = RepositoryName.new(repo.data)
+@repo_name = RepositoryName.new(repo.data).name
 
 # Contributor Names
 contributors = GithubService.new(EndPoints.contributors)
-@contributor_names = Contributors.new(contributors.data)
+@contributor_names = Contributors.new(contributors.data).contributors
 
 # Commit Descriptions In An Array For Specific User
-commits = GithubService.new(EndPoints.commits("jlweave"))
-@commits_count = RepositoryCommits.new(commits.data)
+commits = GithubService.new(EndPoints.commits("justjakeseymour"))
+@commits_count = RepositoryCommits.new(commits.data).commits
 
 # Pull Request Count
 pulls = GithubService.new(EndPoints.pulls("closed"))

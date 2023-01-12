@@ -16,11 +16,11 @@
     <%= yield %>
   <hr>
   <div id="github-stats">
-    Repository Name: <%= @repo_name.name %><br>
-    Contributor Names:<br> <% @contributor_names.contributors.each do |name| %>
+    Repository Name: <%= @repo_name %><br>
+    Contributor Names:<br> <% @contributor_names.each do |name| %>
       <%= name %>
     <% end %><br>
-    Commits Count: <%= @commits_count.commits %><BR>
+    Commits Count: <%= @commits_count %><BR>
     PR Count: <%= @pr_count %><br>
   </div>
   </body>
