@@ -1,4 +1,37 @@
-<h1>Admin: Merchants</h1>
-<% @merchants.each do |merchant| %>
-  <p><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></p>
-<% end %>
+<h1>Admin: Merchants Index Page</h1>
+
+<div id="enabled-merchants">
+
+<h3>Enabled Merchants</h3>
+  <% @merchants.enabled.each do |merchant| %>
+    <div id=<%="merchant_#{merchant.id}"%>>
+      <p><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></p>
+      <%= "Status: #{merchant.status.capitalize}" %> <br>
+      <%= button_to "Disable", admin_merchant_path(merchant.id), params: {status: :disabled},method: :patch %>
+    </div>
+  <% end %><br>
+</div>
+
+<div id="disabled-merchants">
+<h3>Disabled Merchants</h3>
+  <% @merchants.disabled.each do |merchant| %>
+    <div id=<%="merchant_#{merchant.id}"%>>
+      <p><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></p>
+      <%= "Status: #{merchant.status.capitalize}" %> <br>
+      <%= button_to "Enable", admin_merchant_path(merchant.id), params: {status: :enabled},method: :patch %>
+    </div>
+  <% end %><br>
+</div>
+
+<%= link_to "New Merchant", "/admin/merchants/new" %>
+
+<div id="top_merchants">
+<h3>Top Merchants</h3>
+<ol>
+  <% @top_merchants.each do |merchant| %>
+    <li><p><%= link_to merchant.name, admin_merchant_path(merchant.id) %> - $<%= merchant.total_revenue / 100.00 %> in sales</p>
+        <p>Top day for <%= merchant.name %> was <%= merchant.best_day.strftime("%A, %B %m, %Y") %></p>
+    </li>
+  <% end %>
+</ol>
+</div>
