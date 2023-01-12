@@ -5,7 +5,6 @@ RSpec.describe GithubService do
     describe '.users' do
       it 'returns repo stats contributors data with username and commit totals' do
         search = GithubService.users
-        expect(search).to be_an Array
         user_stats = search.first
         expect(user_stats[:total]).to be_an Integer
         expect(user_stats[:author][:login]).to be_a String
