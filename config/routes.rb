@@ -12,9 +12,6 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index], controller: "merchants"
   end
 
-  # note that an invoice object is being edited, so I believe it is most RESTful to have this route
-    # (same for invoice_item update)
-    
   resources :invoices, only:[:update]
   resources :invoice_items, only: [:update]
 end

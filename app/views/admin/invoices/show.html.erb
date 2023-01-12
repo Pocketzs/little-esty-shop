@@ -1,6 +1,5 @@
 <h1>Invoice #<%= @invoice.id %></h1>
 
-<!-- assuming the update status form can be a partial as well (use on merchants invoices show as well) -->
 <div id="invoice_<%= @invoice.id %>_status"><%= form_with model: @invoice, local: true do |form| %>
   <%= form.label :status %>
   <%= form.select :status, ["in progress", "completed", "cancelled"] %>
